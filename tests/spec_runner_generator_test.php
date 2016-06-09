@@ -27,6 +27,15 @@ use tool_jasmine\spec_runner_generator;
 
 class spec_runner_generator_testcase extends basic_testcase {
 
+    public function test_it_can_be_initialised() {
+
+        $expected = 'tool_jasmine\spec_runner_generator';
+        $actual = get_class(new spec_runner_generator());
+
+        $this->assertEquals($expected, $actual);
+
+    }
+
     public function test_it_outputs_html() {
 
         $output = (new spec_runner_generator())->out();
@@ -35,12 +44,6 @@ class spec_runner_generator_testcase extends basic_testcase {
         $actual = preg_match('/<!DOCTYPE html>/', $output) === 1;
 
         $this->assertEquals($expected, $actual);
-
-    }
-
-    public function test_it_includes_requirejs() {
-
-
 
     }
 
@@ -76,16 +79,30 @@ class spec_runner_generator_testcase extends basic_testcase {
 
     }
 
-//    public function test_it_sets_auth() {
-//
-//        $generator = (new spec_runner_generator())
-//            ->set_auth();
-//
-//        $expected = true;
-//        $actual = $generator->get_renderable();
-//
-//        $this->assertEquals($expected, $actual);
-//
-//    }
+    public function test_it_sets_auth() {
+
+        $expected = true;
+        $actual = (new spec_runner_generator())
+            ->set_auth()
+            ->get_renderable()
+            ->requireauth;
+
+        $this->assertEquals($expected, $actual);
+
+    }
+    
+    public function test_it_sets_custom_js() {
+        
+        $customjs = 'alert("custom JavaScript!");';
+
+        $expected = $customjs;
+        $actual = (new spec_runner_generator())
+            ->custom_js($customjs)
+            ->get_renderable()
+            ->customjs;
+
+        $this->assertEquals($expected, $actual);
+
+    }
 
 }
