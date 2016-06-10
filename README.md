@@ -66,7 +66,7 @@ To remove all Jasmine spec runner files:
 
 ## Advanced usage
 ### CI integration
-To avoid having to write authentication boilerplate to access the spec runners additional options may be passed so that auth is not required. The `--no-auth` flag will prompt for verification before generating runners. Using the `-y` (assume yes) flag in addition will suppress the prompt.
+To avoid having to write authentication boilerplate to access the spec runners additional options may be passed so that auth is not required. The `--no-auth` flag will prompt for verification before generating runners. Using the `-y` (assume yes) flag in addition will suppress this.
 
 An option `--custom-js` can be used to pass inline JavaScript you want adding to each spec runner *after*
 all JavaScript includes but before the actual specs are included. The following example illustrates writing XML to the current working directory with a custom Jasmine reporter.
@@ -96,4 +96,4 @@ Finally we use `phantomjs` to generate the JUnit XML output for one of our specs
 [GNU GPL v3 or later](http://www.gnu.org/copyleft/gpl.html)
 
 ## Credits
-[Jasmine](https://github.com/jasmine/jasmine) is Copyright (c) 2008-2016 Pivotal Labs is licensed under the MIT License.
+[Jasmine](https://github.com/jasmine/jasmine) is Copyright (c) 2008-2016 Pivotal Labs and licensed under the MIT License.
