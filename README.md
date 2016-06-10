@@ -26,7 +26,7 @@ There is one important addition: you must call the global function `specDone()` 
 require(['local_myplugin/mymodule'], function(MyPlugin) {
 	describe('addOne', function() {
 		it('should add one to a given number', function() {
-			expect(MyPlugin.addOne(6)).toEqual(7);
+			expect(MyPlugin.addOneTo(6)).toEqual(7);
 		});
 	});
 
