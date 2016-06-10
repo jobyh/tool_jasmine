@@ -149,27 +149,5 @@ class spec_runner_testcase extends advanced_testcase {
         (new spec_runner())->js_fix_url(7);
 
     }
-    
-//    public function test_js_fix_url_returns_moodle_url_when_not_js_file() {
-//
-//        global $CFG;
-//
-//        $expected = $CFG->httpswwwroot . '/replacementadmin/winnets';
-//        $actual = (new spec_runner())->js_fix_url('/admin/winnets');
-//
-//        $this->assertEquals($expected, $actual);
-//
-//    }
-
-//    public function test_js_fix_url_
-
-//    public function test_get_requirecode() {
-//
-//        $expected = true;
-//        $actual = (new spec_runner())->get_requirecode();
-//
-//        $this->assertEquals($expected, $actual);
-//
-//    }
 
 }
