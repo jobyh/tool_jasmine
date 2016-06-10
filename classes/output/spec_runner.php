@@ -82,28 +82,37 @@ class spec_runner implements \renderable, \templatable {
 
     /**
      * Returns the actual url through which a script is served.
+     * 
+     * Note: This method is copied from TODO
+     * As that method is not accessible we must duplicate code.
      *
      * @param \moodle_url|string $url full moodle url, or shortened path to script
      * @return \moodle_url
      */
     public function js_fix_url($url) {
+
         global $CFG;
 
         if ($url instanceof \moodle_url) {
             return $url;
-        } else if (strpos($url, '/') === 0) {
+        }
+
+        if (strpos($url, '/') === 0) {
+            
             // Fix the admin links if needed.
             if ($CFG->admin !== 'admin') {
                 if (strpos($url, "/admin/") === 0) {
                     $url = preg_replace("|^/admin/|", "/$CFG->admin/", $url);
                 }
             }
+            
             if (debugging()) {
                 // Check file existence only when in debug mode.
                 if (!file_exists($CFG->dirroot . strtok($url, '?'))) {
                     throw new \coding_exception('Attempt to require a JavaScript file that does not exist.', $url);
                 }
             }
+            
             if (substr($url, -3) === '.js') {
                 $jsrev = '-1';
                 if (empty($CFG->slasharguments)) {
@@ -116,9 +125,9 @@ class spec_runner implements \renderable, \templatable {
             } else {
                 return new \moodle_url($CFG->httpswwwroot.$url);
             }
-        } else {
-            throw new \coding_exception('Invalid JS url, it has to be shortened url starting with / or moodle_url instance.', $url);
         }
+
+        throw new \coding_exception('Invalid JS url, it has to be shortened url starting with / or moodle_url instance.', $url);
     }
 
     /**
