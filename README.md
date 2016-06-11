@@ -97,3 +97,5 @@ Finally we use `phantomjs` to generate the JUnit XML output for one of our specs
 
 ## Credits
 [Jasmine](https://github.com/jasmine/jasmine) is Copyright (c) 2008-2016 Pivotal Labs and licensed under the MIT License.
+
+[Sinon](http://sinonjs.org/) is Copyright (c) 2010-2014, Christian Johansen and licensed under the BSD License.
