@@ -1,3 +1,4 @@
 *.swp
 .idea
 *.iml
+*/amd/spec_runner.php
