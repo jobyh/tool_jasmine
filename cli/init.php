@@ -86,8 +86,8 @@ foreach ($amdmodules as $amdmodule) {
 
         echo "\tGenerating {$specfilepath}\n";
 
-        // TODO check permissions.
         file_put_contents($specfilepath, $specfilecontent);
+        @chmod($specfilepath, 0755);
 
     }
 
