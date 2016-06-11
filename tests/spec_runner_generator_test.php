@@ -49,11 +49,13 @@ class spec_runner_generator_testcase extends basic_testcase {
 
     public function test_it_outputs_spec_script_tags() {
 
+        global $CFG;
+
         $dir = "admin/tool/jasmine/tests/fixtures/amd_dir_with_specs";
         $specfiles = array('module1_spec.js', 'module2_spec.js');
 
         $output = (new spec_runner_generator())
-            ->add_dir($dir)
+            ->add_dir("{$CFG->dirroot}/$dir")
             ->out();
 
         $expected = true;
@@ -103,6 +105,14 @@ class spec_runner_generator_testcase extends basic_testcase {
 
         $this->assertEquals($expected, $actual);
 
+    }
+
+    public function test_it_throws_if_added_dir_doesnt_exist() {
+
+        $this->setExpectedException('coding_exception');
+
+        (new spec_runner_generator())->add_dir('/tmp/___dir/doesnt/__XXXxx___/exist');
+        
     }
 
 }

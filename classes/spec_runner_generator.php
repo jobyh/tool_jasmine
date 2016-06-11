@@ -31,6 +31,8 @@ class spec_runner_generator {
 
     protected $renderable;
 
+    protected $specfiles;
+
     public function __construct() {
 
         $this->renderable = new output\spec_runner();
@@ -58,17 +60,19 @@ class spec_runner_generator {
     /**
      * Return a list of JavaScript files in a given directory.
      *
-     * @param string $dirpath A path relative to the dirroot
+     * @param string $dirpath An absolute path to the directory.
      * @return array
      */
     protected function get_js_files($dirpath) {
 
-        global $CFG;
+        $listing = @scandir($dirpath);
+        
+        if ($listing === false) {
+            $message = "Could not scan directory {$dirpath}";
+            throw new \coding_exception($message);
+        }
 
-        $dirpath = preg_replace("/^\/{1}/", '', $dirpath);
-        $abspath = "{$CFG->dirroot}/{$dirpath}";
-
-        return array_filter(scandir($abspath), function($dir) {
+        return array_filter($listing, function($dir) {
             return preg_match('/\.js$/', $dir) === 1;
         });
 
@@ -82,13 +86,11 @@ class spec_runner_generator {
      */
     public function get_spec_files($dirpath) {
 
-        static $specfiles = null;
-
-        if ($specfiles === null) {
-            $specfiles = $this->get_js_files("{$dirpath}/spec");
+        if ($this->specfiles === null) {
+            $this->specfiles = $this->get_js_files("{$dirpath}/spec");
         }
 
-        return $specfiles;
+        return $this->specfiles;
 
     }
 
@@ -100,7 +102,7 @@ class spec_runner_generator {
         $relativebase = str_replace($CFG->dirroot, '', $dirpath);
 
         return array_map(function($sourcefile) use ($dirpath, $relativebase) {
-            return (new \moodle_url("/{$relativebase}/spec/{$sourcefile}"))->out();
+            return (new \moodle_url("{$relativebase}/spec/{$sourcefile}"))->out();
         }, $this->get_spec_files($dirpath));
 
     }
