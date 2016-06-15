@@ -73,7 +73,7 @@ To avoid having to write authentication boilerplate to access the spec runners a
 An option `--custom-js` can be used to pass inline JavaScript you want adding to each spec runner *after*
 all JavaScript includes but before the actual specs are included. The following example illustrates writing XML to the current working directory with a custom Jasmine reporter.
 
-You can install [phantomjs](http://phantomjs.org/) using [npm](https://www.npmjs.com/) if you don't already have it.
+You can install [phantomjs](http://phantomjs.org/) using [npm](https://www.npmjs.com/) if you don't already have it. Note if you installed `npm` using `apt` or similar Linux package manager you'll probably need to `sudo` the example due to the location of global node packages.
 
 ```
 % npm install -g phantomjs
