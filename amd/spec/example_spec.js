@@ -1,4 +1,3 @@
-/* jshint jasmine: true */
 require(['tool_jasmine/example'], function(example) {
 
     describe('example module', function() {

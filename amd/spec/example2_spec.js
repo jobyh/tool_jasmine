@@ -1,4 +1,3 @@
-/* jshint jasmine: true */
 require(['jquery', 'tool_jasmine/example2'], function($, example2) {
 
     describe('example2 module', function() {
