@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jobyh/tool_jasmine.svg?branch=master)](https://travis-ci.org/jobyh/tool_jasmine)
+
 #Jasmine BDD for Moodle & Totara
 
 *This is an alpha release - please report any issues you encounter! :)*
