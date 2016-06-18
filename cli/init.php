@@ -59,7 +59,7 @@ if ($options['no-auth'] === true && $options['assume-yes'] === false) {
 
     $confirmnoauth = trim(cli_input('Spec runners will be publicly accessible via browser. Are you sure? (y/N)', 'n'));
 
-    if (in_array($confirmnoauth, array('y','Y')) === false) {
+    if (in_array($confirmnoauth, array('y', 'Y')) === false) {
         exit();
     }
     $useauth = false;

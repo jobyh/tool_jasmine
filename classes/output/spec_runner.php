@@ -118,7 +118,7 @@ class spec_runner implements \renderable, \templatable {
             if (substr($url, -3) === '.js') {
                 $jsrev = '-1';
                 if (empty($CFG->slasharguments)) {
-                    return new \moodle_url($CFG->httpswwwroot.'/lib/javascript.php', array('rev'=>$jsrev, 'jsfile'=>$url));
+                    return new \moodle_url($CFG->httpswwwroot.'/lib/javascript.php', array('rev' => $jsrev, 'jsfile' => $url));
                 } else {
                     $returnurl = new \moodle_url($CFG->httpswwwroot.'/lib/javascript.php');
                     $returnurl->set_slashargument('/'.$jsrev.$url);

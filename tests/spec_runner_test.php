@@ -39,7 +39,7 @@ class spec_runner_testcase extends advanced_testcase {
     }
 
     public function test_get_requirecode_contains_requirejs() {
-        
+
         $requirecode = (new spec_runner())->get_requirecode();
 
         $expected = true;
@@ -48,7 +48,7 @@ class spec_runner_testcase extends advanced_testcase {
         $this->assertEquals($expected, $actual);
 
     }
-    
+
     public function test_get_requirecode_contains_minimised_requirejs() {
 
         global $CFG;
@@ -65,7 +65,7 @@ class spec_runner_testcase extends advanced_testcase {
         $this->assertEquals($expected, $actual);
 
     }
-    
+
     public function test_js_fix_url_returns_moodle_url() {
 
         $expected = 'moodle_url';
@@ -105,7 +105,7 @@ class spec_runner_testcase extends advanced_testcase {
         $this->setExpectedException('coding_exception');
 
         $CFG->developerdebug = true;
-        
+
         (new spec_runner())->js_fix_url('/file/doesnt/exist_______');
 
     }
@@ -147,7 +147,7 @@ class spec_runner_testcase extends advanced_testcase {
     public function test_js_fix_url_throws_when_url_invalid() {
 
         $this->setExpectedException('coding_exception');
-        
+
         (new spec_runner())->js_fix_url(7);
 
     }
