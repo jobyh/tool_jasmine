@@ -4,7 +4,6 @@ require(['jquery', 'tool_jasmine/example2'], function($, example2) {
 
         describe('addSuccessNotification', function() {
 
-            // Jasmine supports testing async functions...
             it('Should add a notification to a given element', function(done) {
                 var dom = $('<div>');
                 var message = 'You were successful'
@@ -16,7 +15,6 @@ require(['jquery', 'tool_jasmine/example2'], function($, example2) {
             });
 
         });
-
 
     });
 
