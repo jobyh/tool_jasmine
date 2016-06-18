@@ -20,8 +20,7 @@ matrix:
 env:
  global:
   - MOODLE_BRANCH=MOODLE_30_STABLE
-  - IGNORE_PATHS=amd/build,amd/src/bootstrap.js
-  - IGNORE_NAMES=*.txt,moodle.css,moodle-rtl.css,moodle_min.css,editor.css,editor_min.css
+  - IGNORE_PATHS=amd/build
  matrix:
   - DB=pgsql
   - DB=mysqli
