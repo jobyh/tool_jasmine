@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+    <location>lib/jasmine-2.4.1</location>
+    <name>Jasmine</name>
+    <version>2.4.1</version>
+    <license>MIT</license>
+  </library>
+  <library>
+    <location>lib/sinon-1.17.3</location>
+    <name>Sinon</name>
+    <version>1.17.3</version>
+    <license>BSD</license>
+  </library>
+</libraries>
