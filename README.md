@@ -59,7 +59,7 @@ There are also some example specs under `admin/tool/jasmine/amd/spec`. You can i
 The tool will include as many specs as are found under `amd/spec` but make sure they all call `specDone()` otherwise Jasmine won't boot. You will need to re-initialize when adding new spec files.
 
 ## Tidying up
-We don't want to include `spec_runner.php` files in our production codebase once we've finished testing. You may choose to add `*/amd/spec_runner.php` to your `.gitignore` so that runners aren't accidentally staged / committed.
+We don't want to include `spec_runner.php` files in our production codebase once we've finished testing. You may choose to add `*/amd/spec_runner.php` to your `.git/info/excludes` or `.gitignore` file so that runners aren't accidentally staged / committed.
 
 To remove all Jasmine spec runner files:
 
