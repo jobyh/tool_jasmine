@@ -83,32 +83,6 @@ class spec_runner_generator_testcase extends basic_testcase {
 
     }
 
-    public function test_it_sets_auth() {
-
-        $expected = true;
-        $actual = (new spec_runner_generator())
-            ->set_auth()
-            ->get_renderable()
-            ->requireauth;
-
-        $this->assertEquals($expected, $actual);
-
-    }
-
-    public function test_it_sets_custom_js() {
-
-        $customjs = 'alert("custom JavaScript!");';
-
-        $expected = $customjs;
-        $actual = (new spec_runner_generator())
-            ->custom_js($customjs)
-            ->get_renderable()
-            ->customjs;
-
-        $this->assertEquals($expected, $actual);
-
-    }
-
     public function test_it_throws_if_added_dir_doesnt_exist() {
 
         $this->setExpectedException('coding_exception');

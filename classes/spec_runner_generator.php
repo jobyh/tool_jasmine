@@ -126,32 +126,4 @@ class spec_runner_generator {
 
     }
 
-    /**
-     * Set whether authentication is required to view spec runners.
-     *
-     * @param bool $requireauth
-     * @return spec_runner_generator $this
-     */
-    public function set_auth($requireauth = true) {
-
-        $this->renderable->requireauth = $requireauth;
-
-        return $this;
-
-    }
-
-    /**
-     * Add arbitrary JavaScript to be rendered.
-     *
-     * @param string $javascript A string of JavaScript.
-     * @return spec_runner_generator $this
-     */
-    public function custom_js($javascript) {
-
-        $this->renderable->customjs = $javascript;
-
-        return $this;
-
-    }
-
 }

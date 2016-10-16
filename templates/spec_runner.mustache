@@ -25,10 +25,8 @@ require_once("{{dirroot}}/config.php");
 
 global $CFG, $USER, $PAGE;
 
-{{#requireauth}}
 require_login();
 require_capability('moodle/site:config', context_system::instance(), $USER->id);
-{{/requireauth}}
 
 $reporter = optional_param('reporter', '', PARAM_ALPHA);
 $reporter = in_array($reporter, array('tap', 'junit')) ? $reporter : '';
@@ -106,10 +104,6 @@ $PAGE->set_context(context_system::instance());
     </script>
     {{{topbodycode}}}
     {{{endcode}}}
-
-    {{#customjs}}
-    <script>;{{{.}}};</script>
-    {{/customjs}}
 
     {{#specfiles}}
         <script src="{{.}}"></script>

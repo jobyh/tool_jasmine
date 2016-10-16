@@ -30,40 +30,8 @@ global $CFG;
 
 define('CLI_SCRIPT', true);
 
-$useauth = true;
-$customjs = '';
-
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php');
 require_once("$CFG->libdir/clilib.php");
-
-list($options, $unrecognized) = cli_get_params(
-    array(
-        'no-auth' => false,
-        'assume-yes' => false,
-        'custom-js' => '',
-    ),
-    array(
-        'y' => 'assume-yes',
-    )
-);
-
-// TODO this into spec_runner_generator or new object (parse_opts() method ?)
-// Intended for CI usage.
-if ($options['no-auth'] === true && $options['assume-yes'] === true) {
-    $useauth = false;
-}
-
-// TODO this into spec_runner_generator or new object (parse_opts() method ?)
-if ($options['no-auth'] === true && $options['assume-yes'] === false) {
-    cli_heading('Warning');
-
-    $confirmnoauth = trim(cli_input('Spec runners will be publicly accessible via browser. Are you sure? (y/N)', 'n'));
-
-    if (in_array($confirmnoauth, array('y', 'Y')) === false) {
-        exit();
-    }
-    $useauth = false;
-}
 
 echo "Initialising Jasmine spec runners...\n";
 
@@ -82,8 +50,6 @@ foreach ($amdmodules as $amdmodule) {
         $specdirs[] = $specdir;
         $specfilecontent = (new \tool_jasmine\spec_runner_generator())
             ->add_dir($amddir)
-            ->set_auth($useauth)
-            ->custom_js($options['custom-js'])
             ->out();
 
         echo "\tGenerating {$specfilepath}\n";

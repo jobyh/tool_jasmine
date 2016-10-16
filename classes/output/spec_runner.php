@@ -30,16 +30,6 @@ defined('MOODLE_INTERNAL') || die();
 class spec_runner implements \renderable, \templatable {
 
     /**
-     * @var bool
-     */
-    public $requireauth = true;
-
-    /**
-     * @var string
-     */
-    public $customjs = '';
-
-    /**
      * @var array
      */
     public $specfiles = array();
@@ -169,7 +159,6 @@ class spec_runner implements \renderable, \templatable {
         global $CFG, $PAGE;
 
         return array(
-            'requireauth' => $this->requireauth,
             'wwwroot' => $CFG->wwwroot,
             'dirroot' => $CFG->dirroot,
             'speccount' => count($this->specfiles),
@@ -178,7 +167,6 @@ class spec_runner implements \renderable, \templatable {
             'headcode' => $this->get_headcode(),
             'topbodycode' => $PAGE->requires->get_top_of_body_code(),
             'endcode' => $PAGE->requires->get_end_code(),
-            'customjs' => $this->customjs,
         );
 
     }

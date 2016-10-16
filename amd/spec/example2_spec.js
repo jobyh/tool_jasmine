@@ -9,7 +9,7 @@ require(['jquery', 'tool_jasmine/example2'], function($, example2) {
                 var message = 'You were successful';
 
                 example2.addSuccessNotification(dom, message).done(function() {
-                    expect(dom.find('.alert-success').html()).toEqual(message);
+                    expect(dom.find('.alert-success').html().trim()).toEqual(message);
                     done();
                 });
             });
