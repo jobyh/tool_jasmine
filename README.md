@@ -68,34 +68,6 @@ To remove all Jasmine spec runner files:
 % php admin/tool/jasmine/cli/cleanup.php
 ```
 
-## Advanced usage
-### CI integration
-To avoid having to write authentication boilerplate to access the spec runners additional options may be passed so that auth is not required. The `--no-auth` flag will prompt for verification before generating runners. Using the `-y` (assume yes) flag in addition will suppress this.
-
-An option `--custom-js` can be used to pass inline JavaScript you want adding to each spec runner *after*
-all JavaScript includes but before the actual specs are included. The following example illustrates writing XML to the current working directory with a custom Jasmine reporter.
-
-You can install [phantomjs](http://phantomjs.org/) using [npm](https://www.npmjs.com/) if you don't already have it. Note if you installed `npm` using `apt` or similar Linux package manager you'll probably need to `sudo` the example due to the location of global node packages.
-
-```
-% npm install -g phantomjs
-```
-
-Then we'll clone [jasmine-reporters](https://github.com/larrymyers/jasmine-reporters) by Larry Myers and initialise all spec runners including custom JS based on his example code so that we can output results to the local filesystem:
-
-```
-% git clone https://github.com/larrymyers/jasmine-reporters.git ~/jasmine-reporters
-% cd /path/to/lms/dirroot
-% php admin/tool/jasmine/cli/init.php --no-auth -y \
-    --custom-js="$(cat ~/jasmine-reporters/src/junit_reporter.js); var junitReporter = new jasmineReporters.JUnitXmlReporter({ savePath: '..', consolidateAll: false }); jasmine.getEnv().addReporter(junitReporter);"
-```
-
-Finally we use `phantomjs` to generate the JUnit XML output for one of our specs in the current working directory:
-
-```
-% ~/jasmine-reporters/bin/phantomjs.runner.sh <wwwroot>/path/to/amd/spec_runner.php
-```
-
 ## License
 [GNU GPL v3 or later](http://www.gnu.org/copyleft/gpl.html)
 
