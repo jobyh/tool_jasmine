@@ -45,6 +45,11 @@ class spec_runner {
         return $this;
     }
 
+    /**
+     * Return an HTML string which includes Jasmine's stylesheets.
+     *
+     * @return string
+     */
     protected function jasmine_styles_html() {
         $url = (new \moodle_url("/admin/tool/jasmine/lib/jasmine-2.5.2/jasmine.css"))->out();
         return \html_writer::tag('link', '', array('type' => 'text/css', 'rel' => 'stylesheet', 'href' => $url));
