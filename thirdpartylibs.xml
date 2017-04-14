@@ -7,9 +7,9 @@
     <license>MIT</license>
   </library>
   <library>
-    <location>lib/sinon-1.17.3</location>
+    <location>lib/sinon-2.1.0</location>
     <name>Sinon</name>
-    <version>1.17.3</version>
+    <version>2.1.0</version>
     <license>BSD</license>
   </library>
 </libraries>

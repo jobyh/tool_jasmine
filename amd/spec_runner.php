@@ -49,7 +49,7 @@ $PAGE->set_context(context_system::instance());
 
     <script src="http://vagrant.localhost/admin/tool/jasmine/lib/jasmine-2.5.2/boot.js"></script>
 
-    <script src="http://vagrant.localhost/admin/tool/jasmine/lib/sinon-1.17.3/sinon-1.17.3.js"></script>
+    <script src="http://vagrant.localhost/admin/tool/jasmine/lib/sinon-2.1.0/sinon-2.1.0.js"></script>
 
     <?php
 
