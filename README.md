@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jobyh/tool_jasmine.svg?branch=2.0)-development](https://travis-ci.org/jobyh/tool_jasmine)
+[![Build Status](https://travis-ci.org/jobyh/tool_jasmine.svg?branch=2.0-development)](https://travis-ci.org/jobyh/tool_jasmine)
 
 # JavaScript testing for Moodle & Totara
 
