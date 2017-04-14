@@ -1,7 +1,7 @@
 <?php
 // This file is part of tool_jasmine
 //
-// Copyright (C) 2016 onwards Joby Harding
+// Copyright (C) 2017 onwards Joby Harding
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @copyright 2016 onwards Joby Harding
+ * @copyright 2017 onwards Joby Harding
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author    Joby Harding <joby@iamjoby.com>
  * @package   tool_jasmine
@@ -25,130 +25,65 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-use tool_jasmine\output\spec_runner;
+use \tool_jasmine\spec_runner;
 
-class spec_runner_testcase extends advanced_testcase {
+class spec_runner_testcase extends basic_testcase {
 
-    public function test_it_can_be_initialised() {
-
-        $expected = 'tool_jasmine\output\spec_runner';
-        $actual = get_class(new spec_runner());
-
-        $this->assertEquals($expected, $actual);
-
+    public function test_it_can_be_instantiated() {
+        $expected = 'tool_jasmine\spec_runner';
+        $this->assertEquals($expected, get_class(new spec_runner()));
     }
 
-    public function test_get_requirecode_contains_requirejs() {
-
-        $requirecode = (new spec_runner())->get_requirecode();
-
-        $expected = true;
-        $actual = (boolean)preg_match('/\/lib\/requirejs\/require\.js/', $requirecode);
-
-        $this->assertEquals($expected, $actual);
-
+    public function test_it_outputs_a_string() {
+        $this->assertTrue(is_string((new spec_runner())->out()));
     }
 
-    public function test_get_requirecode_contains_minimised_requirejs() {
-
-        global $CFG;
-
-        $this->resetAfterTest();
-
-        $CFG->debugdeveloper = false;
-
-        $requirecode = (new spec_runner())->get_requirecode();
-
-        $expected = true;
-        $actual = (boolean)preg_match('/\/lib\/requirejs\/require\.min\.js/', $requirecode);
-
-        $this->assertEquals($expected, $actual);
-
+    public function test_it_adds_specs() {
+        $spec1 = 'Specs are just strings of JS';
+        $spec2 = 'What larks Pip';
+        $output = (new spec_runner())
+            ->spec($spec1)
+            ->spec($spec2)
+            ->out();
+        $this->assertRegExp("/{$spec1}/", $output);
+        $this->assertRegExp("/{$spec2}/", $output);
     }
 
-    public function test_js_fix_url_returns_moodle_url() {
+    public function test_it_adds_jasmine_js_assets() {
+        $output = (new spec_runner())->out();
+        $jsfiles = array(
+            'boot.js',
+            'jasmine.js',
+            'jasmine-html.js',
+        );
 
-        $expected = 'moodle_url';
-        $actual = get_class((new spec_runner())->js_fix_url(new \moodle_url('/index')));
-
-        $this->assertEquals($expected, $actual);
-
+        foreach ($jsfiles as $jsfile) {
+            $url = (new moodle_url("/admin/tool/jasmine/lib/jasmine-2.5.2/{$jsfile}"))->out();
+            $tag = html_writer::tag('script', '', array('type' => 'text/javascript', 'src' => $url));
+            $regex = '/' . preg_quote($tag, '/') . '/';
+            $this->assertRegExp($regex, $output);
+        }
     }
 
-    public function test_js_fix_url_replaces_admin_path() {
+    public function test_it_adds_jasmine_css() {
+        $output = (new spec_runner())->out();
 
-        global $CFG;
-
-        $this->resetAfterTest();
-
-        $CFG->developerdebug = true;
-
-        // This is a bit of a 'trick' so that we have
-        // a file which exists. Setting $CFG->admin to
-        // 'core' in a real deployment would break it.
-        $CFG->admin = 'lib';
-
-        $jsfile = "/admin/amd/src/templates.js";
-
-        $expected = $CFG->httpswwwroot . "/lib/javascript.php/-1/{$CFG->admin}/amd/src/templates.js";
-        $actual = (new spec_runner())->js_fix_url($jsfile)->out();
-
-        $this->assertEquals($expected, $actual);
-
+        $url = (new moodle_url("/admin/tool/jasmine/lib/jasmine-2.5.2/jasmine.css"))->out();
+        $tag = html_writer::tag('link', '', array('type' => 'text/css', 'rel' => 'stylesheet', 'href' => $url));
+        $regex = '/' . preg_quote($tag, '/') . '/';
+        $this->assertRegExp($regex, $output);
     }
 
-    public function test_js_fix_url_throws_when_file_missing() {
+    public function test_it_adds_sinon_js() {
+        $output = (new spec_runner())->out();
 
-        global $CFG;
-
-        $this->resetAfterTest();
-        $this->setExpectedException('coding_exception');
-
-        $CFG->developerdebug = true;
-
-        (new spec_runner())->js_fix_url('/file/doesnt/exist_______');
-
+        $url = (new moodle_url("/admin/tool/jasmine/lib/sinon-2.1.0/sinon.js"))->out();
+        $tag = html_writer::tag('script', '', array('type' => 'text/javascript', 'src' => $url));
+        $regex = '/' . preg_quote($tag, '/') . '/';
+        $this->assertRegExp($regex, $output);
     }
 
-    public function test_js_fix_url_returns_object_when_no_slasharguments() {
-
-        global $CFG;
-
-        $this->resetAfterTest();
-
-        $CFG->slasharguments = null;
-
-        $url = '/admin/tool/jasmine/amd/src/example.js';
-
-        $expected = 'moodle_url';
-        $actual = get_class((new spec_runner())->js_fix_url($url));
-
-        $this->assertEquals($expected, $actual);
-
-    }
-
-    public function test_js_fix_url_returns_object_when_not_js_filetype() {
-
-        global $CFG;
-
-        $this->resetAfterTest();
-
-        $CFG->slasharguments = null;
-
-        $url = '/admin/tool/jasmine/renderer.php';
-
-        $expected = 'moodle_url';
-        $actual = get_class((new spec_runner())->js_fix_url($url));
-
-        $this->assertEquals($expected, $actual);
-
-    }
-
-    public function test_js_fix_url_throws_when_url_invalid() {
-
-        $this->setExpectedException('coding_exception');
-
-        (new spec_runner())->js_fix_url(7);
+    public function test_it_sets_up_page_object() {
 
     }
 

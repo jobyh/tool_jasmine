@@ -2,8 +2,6 @@
 
 #Jasmine BDD for Moodle & Totara
 
-*This project is a proof of concept*
-
 Integrates the [Jasmine](https://github.com/jasmine/jasmine) BDD test framework with [Moodle](https://moodle.org/) or [Totara](https://www.totaralms.com/). Jasmine provides a nice HTML based spec runner out of the box and can be integrated easily with the Moodle / Totara stack. [Sinon](http://sinonjs.org/) is also included for creation of mocks, stubs and spies.
 
 The tool is intended for development purposes and not production use. By default generated spec runners require authentication and site admin permission to access (just in case you accidentally deployed one).

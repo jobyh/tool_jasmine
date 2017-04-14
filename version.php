@@ -1,7 +1,7 @@
 <?php
 // This file is part of tool_jasmine
 //
-// Copyright (C) 2016 onwards Joby Harding
+// Copyright (C) 2017 onwards Joby Harding
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @copyright 2016 onwards Joby Harding
+ * @copyright 2017 onwards Joby Harding
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author    Joby Harding <joby@iamjoby.com>
  * @package   tool_jasmine
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016051400;
+$plugin->version   = 2017041400;
 $plugin->requires  = 2015051100;
 $plugin->component = 'tool_jasmine';
 $plugin->maturity  = MATURITY_ALPHA;
