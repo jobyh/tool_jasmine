@@ -30,11 +30,6 @@ defined('MOODLE_INTERNAL') || die();
 class spec_runner {
 
     /**
-     * Delimits concatenated specs inside <script> tag.
-     */
-    const SPEC_DELIMITER = PHP_EOL . PHP_EOL;
-
-    /**
      * @var array
      */
     protected $specs = array();
@@ -92,7 +87,7 @@ class spec_runner {
 
         $output .= $this->sinon_scripts_html();
 
-        $specs = implode(self::SPEC_DELIMITER, $this->specs);
+        $specs = implode((PHP_EOL . PHP_EOL), $this->specs);
         $attributes = array('type' => 'text/javascript');
         $output .= \html_writer::tag('script', $specs, $attributes);
 
