@@ -77,7 +77,7 @@ class spec_runner_testcase extends basic_testcase {
     public function test_it_adds_sinon_js() {
         $output = (new spec_runner())->out();
 
-        $url = (new moodle_url("/admin/tool/jasmine/lib/sinon-2.1.0/sinon.js"))->out();
+        $url = (new moodle_url("/admin/tool/jasmine/lib/sinon-2.1.0/sinon-2.1.0.js"))->out();
         $tag = html_writer::tag('script', '', array('type' => 'text/javascript', 'src' => $url));
         $regex = '/' . preg_quote($tag, '/') . '/';
         $this->assertRegExp($regex, $output);
