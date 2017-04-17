@@ -27,10 +27,12 @@ defined('MOODLE_INTERNAL') || die();
 
 use \tool_jasmine\boilerplate;
 
-class boilerplate_testcase extends basic_testcase {
+class boilerplate_testcase extends advanced_testcase {
 
     public function test_it_sets_page_url() {
         global $PAGE;
+
+        $this->resetAfterTest();
 
         $url = new moodle_url('/foo/bar.php');
         boilerplate::init_page($url);
@@ -40,7 +42,9 @@ class boilerplate_testcase extends basic_testcase {
 
     public function test_theme_styles_requires_theme_sheet() {
         global $PAGE;
+
         $import = '@import "' . (new moodle_url("/admin/tool/jasmine/styles/{$PAGE->theme->name}.css"))->out() . '";';
         $this->assertRegExp('/' . preg_quote($import, '/') . '/', boilerplate::theme_styles());
     }
+
 }

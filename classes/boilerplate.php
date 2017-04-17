@@ -93,4 +93,19 @@ class boilerplate {
         return \html_writer::tag('style', "@import \"{$sheeturl}\";");
     }
 
+    /**
+     * Only allow access from the acceptance site.
+     */
+    public static function check_acceptance_site() {
+        global $CFG;
+
+        // This global is also set when manually navigating
+        // to the acceptance test site.
+        if (!defined('BEHAT_SITE_RUNNING')) {
+            // TODO something better with developer debug message.
+            header("Location: {$CFG->wwwroot}/");
+        }
+    }
+
+
 }

@@ -25,6 +25,7 @@
 
 require('../../../../../../config.php');
 
+\tool_jasmine\boilerplate::check_acceptance_site();
 \tool_jasmine\boilerplate::check_permissions();
 \tool_jasmine\boilerplate::init_page(new moodle_url('/admin/tool/jasmine/tests/fixtures/jasmine/example_spec.php'));
 
@@ -41,6 +42,4 @@ $spec = <<<JS
 
 JS;
 
-echo (new \tool_jasmine\spec_runner())
-    ->spec($spec)
-    ->out();
+echo (new \tool_jasmine\spec_runner())->spec($spec)->out();
