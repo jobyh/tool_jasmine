@@ -1,0 +1,16 @@
+/*
+ * Styles to roll back page elements we can't
+ * prevent being output.
+ */
+
+body {
+    margin-left: 0 !important;
+}
+
+header[role=banner],
+#page,
+#page-wrapper,
+#page-footer,
+#nav-drawer {
+    display: none;
+}

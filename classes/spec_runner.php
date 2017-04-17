@@ -74,7 +74,7 @@ class spec_runner {
      * @return string
      */
     protected function sinon_scripts_html() {
-        $url = (new \moodle_url("/admin/tool/jasmine/lib/sinon-2.1.0/sinon.js"))->out();
+        $url = (new \moodle_url("/admin/tool/jasmine/lib/sinon-2.1.0/sinon-2.1.0.js"))->out();
         return \html_writer::tag('script', '', array('type' => 'text/javascript', 'src' => $url));
     }
 
@@ -85,16 +85,28 @@ class spec_runner {
      */
     public function out() {
 
-        $output = '';
+        $output  = '';
+
+        // Include a stylesheet based on the current theme name.
+        // We don't want this to be cached / included with theme styles.
+        $output .= \tool_jasmine\boilerplate::theme_styles();
+
+        $output .= \tool_jasmine\boilerplate::page_header();
 
         $output .= $this->jasmine_styles_html();
         $output .= $this->jasmine_scripts_html();
 
         $output .= $this->sinon_scripts_html();
 
+        // Ensure things like require() are defined before
+        // we try to use them in our specs.
+        $output .= \tool_jasmine\boilerplate::page_footer();
+
+        // Output the Jasmine specs.
         $specs = implode((PHP_EOL . PHP_EOL), $this->specs);
         $attributes = array('type' => 'text/javascript');
         $output .= \html_writer::tag('script', $specs, $attributes);
+
 
         return $output;
     }

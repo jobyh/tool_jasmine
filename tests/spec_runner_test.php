@@ -83,8 +83,4 @@ class spec_runner_testcase extends basic_testcase {
         $this->assertRegExp($regex, $output);
     }
 
-    public function test_it_sets_up_page_object() {
-
-    }
-
 }
