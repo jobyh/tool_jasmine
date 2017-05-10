@@ -1,0 +1,7 @@
+/*
+ * Something of a hack to hide page elements we cannot
+ * prevent being output when satisfying JS dependencies.
+ */
+body > *:not(.jasmine_html-reporter) {
+    display: none;
+}

@@ -83,29 +83,39 @@ class boilerplate {
     }
 
     /**
-     * Return a <style> element which imports a stylesheet based on current theme name.
-     *
-     * @return string
-     */
-    public static function theme_styles() {
-        global $PAGE;
-        $sheeturl = new \moodle_url("/admin/tool/jasmine/styles/{$PAGE->theme->name}.css");
-        return \html_writer::tag('style', "@import \"{$sheeturl}\";");
-    }
-
-    /**
      * Only allow access from the acceptance site.
      */
     public static function check_acceptance_site() {
         global $CFG;
 
+        // Only allow access from the acceptance (Behat) site
+        // to mitigate data loss.
+
         // This global is also set when manually navigating
         // to the acceptance test site.
         if (!defined('BEHAT_SITE_RUNNING')) {
-            // TODO something better with developer debug message.
-            header("Location: {$CFG->wwwroot}/");
+            if (debugging('', DEBUG_DEVELOPER)) {
+                $message = 'Jasmine Tests may only be accessed from the acceptance site.';
+                debugging($message, DEBUG_DEVELOPER) && die();
+            } else {
+                header("Location: {$CFG->wwwroot}/");
+            }
         }
     }
 
+    /**
+     * @return string
+     */
+    public static function hide_page_element_styles() {
+        $url = (new \moodle_url('/admin/tool/jasmine/styles/reset.css'))->out();
+        $html =<<<HTML
+<style>
+    /* Jasmine runner styles should never be included with production styles. */
+    @import "{$url}";
+</style>
+HTML;
+        return $html;
+        
+    }
 
 }

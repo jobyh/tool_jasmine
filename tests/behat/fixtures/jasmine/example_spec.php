@@ -23,16 +23,16 @@
  * @package   tool_jasmine
  */
 
-require('../../../../../../config.php');
+require('../../../../../../../config.php');
 
 \tool_jasmine\boilerplate::check_acceptance_site();
 \tool_jasmine\boilerplate::check_permissions();
-\tool_jasmine\boilerplate::init_page(new moodle_url('/admin/tool/jasmine/tests/fixtures/jasmine/example_spec.php'));
+\tool_jasmine\boilerplate::init_page(new moodle_url('/admin/tool/jasmine/tests/behat/fixtures/jasmine/example_spec.php'));
 
 $spec = <<<JS
 
     describe('Test an AMD module', function() {
-        it('can do async', function(done) {
+        it('can test async functions', function(done) {
             require(['jquery'], function($) {
                 expect(typeof $).toBe('function');
                 done();

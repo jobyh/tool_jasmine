@@ -87,11 +87,11 @@ class spec_runner {
 
         $output  = '';
 
-        // Include a stylesheet based on the current theme name.
-        // We don't want this to be cached / included with theme styles.
-        $output .= \tool_jasmine\boilerplate::theme_styles();
-
         $output .= \tool_jasmine\boilerplate::page_header();
+
+        // Hides parts of the page we can't prevent being output
+        // due to tight coupling of in core output renderers.
+        $output .= \tool_jasmine\boilerplate::hide_page_element_styles();
 
         $output .= $this->jasmine_styles_html();
         $output .= $this->jasmine_scripts_html();

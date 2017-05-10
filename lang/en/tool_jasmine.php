@@ -23,4 +23,4 @@
  * @package   tool_jasmine
  */
 
-$string['pluginname'] = 'Jasmine JavaScript BDD';
+$string['pluginname'] = 'Jasmine JavaScript Test Framework';

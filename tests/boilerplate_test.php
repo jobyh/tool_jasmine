@@ -40,11 +40,9 @@ class boilerplate_testcase extends advanced_testcase {
         $this->assertEquals($url, $PAGE->url);
     }
 
-    public function test_theme_styles_requires_theme_sheet() {
-        global $PAGE;
-
-        $import = '@import "' . (new moodle_url("/admin/tool/jasmine/styles/{$PAGE->theme->name}.css"))->out() . '";';
-        $this->assertRegExp('/' . preg_quote($import, '/') . '/', boilerplate::theme_styles());
+    public function test_hide_page_element_styles() {
+        $import = '@import "' . (new moodle_url("/admin/tool/jasmine/styles/reset.css"))->out() . '";';
+        $this->assertRegExp('/' . preg_quote($import, '/') . '/', boilerplate::hide_page_element_styles());
     }
 
 }
