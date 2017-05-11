@@ -23,7 +23,7 @@
  * @package   tool_jasmine
  */
 
-require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
+require_once(__DIR__ . '/../../../../../lib/behat/behat_base.php');
 
 use \tool_jasmine\spec_finder;
 
