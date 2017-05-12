@@ -64,12 +64,23 @@ class spec_finder {
             throw new \coding_exception("'{$dir}' is not a directory.");
         }
 
-        $specfiles = array_filter($entries, function($entry) use ($dir) {
-            return is_file("{$dir}/$entry") && self::filename_is_spec($entry);
-        });
+        $specfiles = [];
 
-        // Ensure array keys are reset.
-        return array_values($specfiles);
+        foreach ($entries as $entry) {
+            if (!is_file("{$dir}/$entry")) {
+                continue;
+            }
+            if (!self::filename_is_spec($entry)) {
+                continue;
+            }
+
+            // Return the name of the spec without the suffix as this
+            // is how the Behat step definition i_navigate_to_the_x_plugin_x_jasmine_spec
+            // will expect it to be formatted.
+            $specfiles[] = substr($entry, 0, (strlen($entry) - strlen(self::SPEC_SUFFIX)));
+        }
+
+        return $specfiles;
     }
 
     /**
@@ -82,42 +93,39 @@ class spec_finder {
         $types = array_keys(\core_component::get_plugin_types());
 
         return array_reduce($types, function($acc, $type) {
-            $plugins = array_values(\core_component::get_plugin_list($type));
-            return array_merge($acc, $plugins);
+            $plugins = \core_component::get_plugin_list($type);
+            foreach ($plugins as $name => $pluginpath) {
+                $frankenstyle = "{$type}_{$name}";
+                $acc[$frankenstyle] = $pluginpath;
+            }
+            return $acc;
         }, []);
     }
 
     /**
      * Return an array of Jasmine specs found in entire system.
      *
-     * Array contains absolute paths to each spec.
+     * Returns an array in the form: frankenstyle => [spec1, spec2]
+     * Plugins with no specs are omitted from the returned array.
+     * Specs are listed without the SPEC_SUFFIX.
      *
      * @return array
      */
     public static function find_in_system() {
-        return array_reduce(self::list_plugin_dirs(), function($acc, $plugindir) {
-            $specdir = $plugindir . '/' . self::PLUGIN_SPEC_DIR;
-            $specs = is_dir($specdir) ? self::find_in_directory($specdir) : [];
-            $fullpaths = array_map(function($spec) use ($specdir) {
-                return $specdir . '/' . $spec;
-            }, $specs);
-            return array_merge($acc, $fullpaths);
-        }, []);
-    }
 
-//    /**
-//     * Return an array of Jasmine specs found in entire system.
-//     *
-//     * Array contains absolute paths to each spec.
-//     *
-//     * @return array
-//     */
-//    public static function find_in_plugins() {
-//        return array_reduce(self::list_plugin_dirs(), function($acc, $plugindir) {
-//            $specdir = $plugindir . '/' . self::PLUGIN_SPEC_DIR;
-//            $specs = is_dir($specdir) ? self::find_in_directory($specdir) : [];
-//            return array_merge($acc, $fullpaths);
-//        }, []);
-//    }
+        $specdata = [];
+
+        $plugins = self::list_plugin_dirs();
+
+        foreach ($plugins as $frankenstyle => $pluginpath) {
+            $specdir = $pluginpath . '/' . self::PLUGIN_SPEC_DIR;
+            $specs = is_dir($specdir) ? self::find_in_directory($specdir) : [];
+            if (!empty($specs)) {
+                $specdata[$frankenstyle] = is_dir($specdir) ? self::find_in_directory($specdir) : [];
+            }
+        }
+
+        return $specdata;
+    }
 
 }

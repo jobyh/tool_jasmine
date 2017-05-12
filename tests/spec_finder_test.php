@@ -39,6 +39,7 @@ class spec_finder_testcase extends basic_testcase {
 
     public function test_file_is_spec() {
 
+        // TODO use constant?
         $paths = [
             'foo_spec.js.php' => true,
             'foobar.js.php'   => false,
@@ -46,7 +47,6 @@ class spec_finder_testcase extends basic_testcase {
             'foo_bar.js.php'  => false,
             '_spec.js.php'    => false,
         ];
-
 
         foreach ($paths as $path => $expected) {
             $message  = "Expected path '{$path}' ";
@@ -58,8 +58,10 @@ class spec_finder_testcase extends basic_testcase {
 
     public function test_find_in_directory() {
         $dir = implode('/', [self::$dummy_plugin_dir, spec_finder::PLUGIN_SPEC_DIR]);
-        $specs = spec_finder::find_in_directory($dir);
-        $this->assertEquals(3, count($specs));
+        $expected = ['dummy1', 'dummy2', 'dummy3'];
+        $actual = spec_finder::find_in_directory($dir);
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function test_find_in_directory_throws() {
@@ -69,14 +71,11 @@ class spec_finder_testcase extends basic_testcase {
     }
 
     public function test_find_in_system() {
-        global $CFG;
 
-        // We can only check for the specfiles we can be
+        // We can only check for the specs we can be
         // sure exist (those included with tool_jasmine).
-        $expected = [
-            $CFG->dirroot . "/admin/tool/jasmine/tests/behat/fixtures/tool_jasmine/example_spec.js.php"
-        ];
-        $actual = array_intersect(spec_finder::find_in_system(), $expected);
+        $expected = ['example'];
+        $actual = spec_finder::find_in_system()['tool_jasmine'];
 
         $this->assertEquals($expected, $actual);
     }
