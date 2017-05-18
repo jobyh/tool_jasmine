@@ -34,18 +34,21 @@ Usual plugin installation drill. Navigate to `Site administration > notification
 
 In order to satisfy security requirements and mitigate potential data loss JavaScript specs must be contained within PHP files and can only be accessed from an initialised [acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test) (Behat) site URL the base of which you will have defined in `$CFG->behat_wwwroot`. The username / password when logging in to the acceptance site is automatically configured during Behat initialisation. In 2.9 it is `admin`, `admin`.
 
+Specs are impelemeted as Behat test fixtures and must be located accordingly inside a directory called `tool_jasmine`. Spec files must end with the `_spec.js.php` suffix. You may find it a useful convention to keep a 1:1 association between your JS modules and specs. E.g. the following example tests an AMD module called `mymodule` found in a local plugin `foo`: 
+
 ```php
-// local/foo/tests/behat/fixtures/tool_jasmine/mymodule.js.php
+// local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.js.php
+
 require_once('../../config.php');
 
 // Editors like PHPStorm will correctly syntax highlight the following
 // block as JavaScript if we use 'JS' Heredoc delimiters.
 $spec = <<<JS
 
-    describe('Test an AMD module', function() {
-        it('can test async functions', function(done) {
-            require(['jquery'], function($) {
-                expect(typeof $).toBe('function');
+    describe('local_foo/mymodule AMD module', function() {
+        it('can say Hi!', function(done) {
+            require(['local_foo/mymodule'], function(mymodule) {
+                expect(mymodule.sayHi()).toBe('Hi!');
                 done();
             })
         });
