@@ -77,7 +77,7 @@ Provided you have initialised [acceptance testing](https://docs.moodle.org/dev/R
 ```
 
 ## FAQs
-- **Why Jasmine?** It was designed to run in a browser-based runner and comes with a nice one out of the box. Due to the tightly coupled nature of the Moodle architecture its not possible
+- **Why Jasmine?** TODO
 
 ## License
 [GNU GPL v3 or later](http://www.gnu.org/copyleft/gpl.html)
