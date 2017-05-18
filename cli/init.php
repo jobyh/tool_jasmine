@@ -26,12 +26,35 @@
 // No web access.
 isset($_SERVER['REMOTE_ADDR']) && die();
 
-global $CFG;
+global $CFG, $PAGE;
 
 define('CLI_SCRIPT', true);
 
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php');
-require_once("{$CFG->libdir}/clilib.php");
 
-echo 'TODO';
-exit(1);
+$featuresdir = "{$CFG->dataroot}/tool_jasmine";
+
+if (!file_exists($featuresdir)) {
+    mkdir($featuresdir);
+}
+
+if (!is_writable($featuresdir)) {
+    throw new coding_exception("tool_jasmine features directory '{$featuresdir}' is not writable");
+}
+
+// Find specs and generate behat features under the tool_jasmine dataroot directory.
+$specsdata = \tool_jasmine\spec_finder::find_in_system();
+$renderer = $PAGE->get_renderer('tool_jasmine');
+
+foreach($specsdata as $frankenstyle => $specs) {
+    $filename = "{$frankenstyle}.feature";
+    $content = $renderer->render(new \tool_jasmine\output\behat_feature($frankenstyle, $specs));
+
+    // Write feature files to filesystem.
+    $outputpath = "{$featuresdir}/{$filename}";
+
+    file_put_contents($outputpath, $content);
+    testing_fix_file_permissions($outputpath);
+}
+
+exit(0);

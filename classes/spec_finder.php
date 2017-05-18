@@ -105,7 +105,7 @@ class spec_finder {
     /**
      * Return an array of Jasmine specs found in entire system.
      *
-     * Returns an array in the form: frankenstyle => [spec1, spec2]
+     * Returns an array in the form: Frankenstyle => [spec1, spec2]
      * Plugins with no specs are omitted from the returned array.
      * Specs are listed without the SPEC_SUFFIX.
      *

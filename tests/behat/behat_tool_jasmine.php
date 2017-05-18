@@ -34,7 +34,7 @@ class behat_tool_jasmine extends behat_base {
      *
      * Specs are intentionally omitted from navigation therefore
      * we navigate to the spec directly. The plugin parameter is
-     * a frankenstyle plugin name. The spec parameter should be
+     * a Frankenstyle plugin name. The spec parameter should be
      * the name of the spec without the spec suffix. Convention
      * is to provide a single spec file for each AMD module and
      * name it accordingly. E.g.
@@ -47,7 +47,7 @@ class behat_tool_jasmine extends behat_base {
         global $CFG;
 
         $plugindir = core_component::get_component_directory($plugin);
-        $relativepath = substr($plugindir, 0, strlen($CFG->dirroot));
+        $relativepath = substr($plugindir, strlen($CFG->dirroot));
 
         $specfile = $specname . spec_finder::SPEC_SUFFIX;
         $specpath = implode('/', [$relativepath, spec_finder::PLUGIN_SPEC_DIR, $specfile]);
