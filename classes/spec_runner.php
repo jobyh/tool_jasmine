@@ -111,4 +111,22 @@ class spec_runner {
         return $output;
     }
 
+    /**
+     * @param $specs
+     */
+    public static function generate($url, $specs) {
+        global $PAGE;
+
+        \tool_jasmine\boilerplate::check_acceptance_site();
+        \tool_jasmine\boilerplate::check_permissions();
+        \tool_jasmine\boilerplate::init_page(new \moodle_url($url));
+//        if (!is_array($specs)) {
+//            $specs = array($specs);
+//        }
+//
+//        $instance = new \tool_jasmine\spec_runner();
+//
+//        foreach ($specs as $spec) {}
+        return 'woo';
+    }
 }

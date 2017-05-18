@@ -75,9 +75,14 @@ class spec_finder_testcase extends basic_testcase {
         // We can only check for the specs we can be
         // sure exist (those included with tool_jasmine).
         $expected = ['example'];
-        $actual = spec_finder::find_in_system()['tool_jasmine'];
+        $actual = spec_finder::find_in_plugins()['tool_jasmine'];
 
         $this->assertEquals($expected, $actual);
+    }
+
+    public function test_find_in_fixtures_plugin_dirs() {
+//        $actual = spec_finder::find_in_fixtures();
+        $this->markTestIncomplete();
     }
 
 }

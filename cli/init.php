@@ -43,7 +43,7 @@ if (!is_writable($featuresdir)) {
 }
 
 // Find specs and generate behat features under the tool_jasmine dataroot directory.
-$specsdata = \tool_jasmine\spec_finder::find_in_system();
+$specsdata = \tool_jasmine\spec_finder::find_in_plugins();
 $renderer = $PAGE->get_renderer('tool_jasmine');
 
 foreach($specsdata as $frankenstyle => $specs) {

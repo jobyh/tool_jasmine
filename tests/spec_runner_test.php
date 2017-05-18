@@ -83,4 +83,10 @@ class spec_runner_testcase extends basic_testcase {
         $this->assertRegExp($regex, $output);
     }
 
+    public function test_generate() {
+//        $expected = '';
+//        $actual = spec_runner::from_specs('My spec' . PHP_EOL);
+        $this->markTestIncomplete();
+    }
+
 }

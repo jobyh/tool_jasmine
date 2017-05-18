@@ -88,11 +88,17 @@ class spec_finder {
      *
      * @return string[]
      */
-    protected static function list_plugin_dirs() {
+    protected static function list_plugin_paths() {
+
+        static $cache = null;
+
+        if ($cache !== null) {
+            return $cache;
+        }
 
         $types = array_keys(\core_component::get_plugin_types());
 
-        return array_reduce($types, function($acc, $type) {
+        return $cache = array_reduce($types, function($acc, $type) {
             $plugins = \core_component::get_plugin_list($type);
             foreach ($plugins as $name => $pluginpath) {
                 $frankenstyle = "{$type}_{$name}";
@@ -111,11 +117,11 @@ class spec_finder {
      *
      * @return array
      */
-    public static function find_in_system() {
+    public static function find_in_plugins() {
 
         $specdata = [];
 
-        $plugins = self::list_plugin_dirs();
+        $plugins = self::list_plugin_paths();
 
         foreach ($plugins as $frankenstyle => $pluginpath) {
             $specdir = $pluginpath . '/' . self::PLUGIN_SPEC_DIR;
@@ -126,6 +132,9 @@ class spec_finder {
         }
 
         return $specdata;
+    }
+
+    public function find_in_fixtures_plugin_dirs() {
     }
 
 }
