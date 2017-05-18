@@ -32,7 +32,7 @@ Usual plugin installation drill. Navigate to `Site administration > notification
 
 ## Writing specs
 
-In order to satisfy security requirements and mitigate potential data loss JavaScript specs must be contained within PHP files and can only be accessed from an initialised [acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test) (Behat) site URL (the base of which you will have defined in `$CFG->behat_wwwroot`. The username / password when logging in to the acceptance site is automatically configured during Behat initialisation. In 2.9 it is `admin`, `admin`.
+In order to satisfy security requirements and mitigate potential data loss JavaScript specs must be contained within PHP files and can only be accessed from an initialised [acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test) (Behat) site URL the base of which you will have defined in `$CFG->behat_wwwroot`. The username / password when logging in to the acceptance site is automatically configured during Behat initialisation. In 2.9 it is `admin`, `admin`.
 
 ```php
 // local/foo/tests/behat/fixtures/tool_jasmine/mymodule.js.php
