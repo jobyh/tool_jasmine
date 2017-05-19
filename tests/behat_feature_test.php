@@ -19,7 +19,7 @@
 /**
  * @copyright 2017 onwards Totara Learning Ltd
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Joby Harding <joby@totaralearning.com>
+ * @author    Joby Harding <joby.harding@totaralearning.com>
  * @package   tool_jasmine
  */
 

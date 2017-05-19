@@ -32,14 +32,15 @@ define('CLI_SCRIPT', true);
 
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php');
 
-$featuresdir = "{$CFG->dataroot}/tool_jasmine";
+$paths = new \tool_jasmine\fs_paths();
 
-if (!file_exists($featuresdir)) {
-    mkdir($featuresdir);
+if (!is_writable($paths->root)) {
+    $dataroot = \tool_jasmine\fs_paths::CFG_PROP_DATAROOT;
+    throw new coding_exception("\$CFG property {$dataroot} does not exist or is not writable");
 }
 
-if (!is_writable($featuresdir)) {
-    throw new coding_exception("tool_jasmine features directory '{$featuresdir}' is not writable");
+if (!file_exists($paths->features)) {
+    mkdir($paths->features);
 }
 
 // Find specs and generate behat features under the tool_jasmine dataroot directory.
@@ -47,12 +48,8 @@ $specsdata = \tool_jasmine\spec_finder::find_in_plugins();
 $renderer = $PAGE->get_renderer('tool_jasmine');
 
 foreach($specsdata as $frankenstyle => $specs) {
-    $filename = "{$frankenstyle}.feature";
     $content = $renderer->render(new \tool_jasmine\output\behat_feature($frankenstyle, $specs));
-
-    // Write feature files to filesystem.
-    $outputpath = "{$featuresdir}/{$filename}";
-
+    $outputpath = implode('/', array($paths->features, "{$frankenstyle}.feature"));
     file_put_contents($outputpath, $content);
     testing_fix_file_permissions($outputpath);
 }
