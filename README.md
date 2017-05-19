@@ -7,12 +7,14 @@
 Integrates the [Jasmine](https://github.com/jasmine/jasmine) BDD test framework with [Moodle](https://moodle.org/) or [Totara](https://www.totaralms.com/). Jasmine provides a nice HTML based spec runner out of the box and can be integrated easily with the Moodle / Totara platforms. [Sinon](http://sinonjs.org/) is also included for creation of mocks, stubs and spies.
 
 ## Overview
-A somewhat eccentric tool for JavaScript testing. **TODO**
+A somewhat eccentric tool for JavaScript testing.
+
+**TODO**
 
 ### What it does
-- Gives you the means to write tests for JavaScript in Moodle and Totara
-- Provides a way to automate running your tests e.g. for Continuous Integration
-- Allows you to integrate tests with your codebase or store them separately
+- Gives you the means to write test-driven JavaScript in Moodle and Totara
+- Provides a way to automate running your tests
+- Allows you to integrate spec files with your codebase or store them separately
 
 ### What it doesn't
 - Provide a way to extract metrics such as code coverage for your JavaScript
@@ -30,14 +32,27 @@ A somewhat eccentric tool for JavaScript testing. **TODO**
 
 Usual plugin installation drill. Navigate to `Site administration > notifications` and follow the onscreen instructions. Also initialise your Behat [acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test) site from which specs will be accessed.
 
+## Spec Location
+Depending on what you're developing / buy-in from stakeholders you may or may not wish to include Jasmine specs in your LMS repository. To accommodate this specs may be placed in either of the following directories:
+
+- In any plugin directory under `tests/behat/fixtures/jasmine`
+- In tool_jasmine `admin/tool/jasmine/tests/behat/fixtures/jasmine/<frankenstyle_componentname>`
+
+In the latter means that all tests can optionally be stored in a standalone version-controlled repository for a given project and dropped in for testing as and when required. In the unlikely situation where two specs with the same name for the same plugin exist in both locations the 
+
+### Accessing Spec Runners
+
+In order to satisfy security requirements and mitigate potential data loss JavaScript specs must be contained within PHP files. This is so they can only be accessed from an initialised Behat ([acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test)) site. You will have defined the URL base of this site in `$CFG->behat_wwwroot` before initialising Behat. Developer debugging must also be enabled in your `config.php` file and you must be logged in as an administrator. The username / password for the administrator account in the Behat site is automatically configured during Behat initialisation and is `admin`, `admin`.
+
+
 ## Writing specs
 
-In order to satisfy security requirements and mitigate potential data loss JavaScript specs must be contained within PHP files and can only be accessed from an initialised [acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test) (Behat) site URL the base of which you will have defined in `$CFG->behat_wwwroot`. The username / password when logging in to the acceptance site is automatically configured during Behat initialisation. In 2.9 it is `admin`, `admin`.
-
-Specs are impelemeted as Behat test fixtures and must be located accordingly inside a directory called `tool_jasmine`. Spec files must end with the `_spec.js.php` suffix. You may find it a useful convention to keep a 1:1 association between your JS modules and specs. E.g. the following example tests an AMD module called `mymodule` found in a local plugin `foo`: 
+Spec files must end with the `_spec.js.php` suffix. You may find it a useful convention to keep a 1:1 association between your JS modules and specs. E.g. the following example tests an AMD module called `mymodule` found in a local plugin `foo`: 
 
 ```php
-// local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.js.php
+// file: local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.js.php
+
+// License and author attribution here.
 
 require_once('../../config.php');
 
@@ -45,24 +60,34 @@ require_once('../../config.php');
 // block as JavaScript if we use 'JS' Heredoc delimiters.
 $spec = <<<JS
 
+    // Write your Jasmine test JavaScript here...
     describe('local_foo/mymodule AMD module', function() {
+    
+        // AMD modules are required asynchronously
+        // so use Jasmine's async form with done() function.
         it('can say Hi!', function(done) {
             require(['local_foo/mymodule'], function(mymodule) {
                 expect(mymodule.sayHi()).toBe('Hi!');
                 done();
             })
         });
+    
     });
 
 JS;
 
+// We must provide the current page URL as we would usually pass to $PAGE->set_url().
 $url = '/local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.js.php';
 
-// Performs necessary access checks then generates HTML.
+// Performs necessary access checks then generates spec runner HTML.
 echo \tool_jasmine\spec_runner::generate($url, $spec);
 ```
 
-View and debug your test results by navigating to the PHP file in a browser.
+View and debug your test results by navigating to the PHP file in a browser. The spec runner for the above would be accessible in a browser at:
+
+ ```
+ <$CFG->behat_wwwroot>/local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.js.php
+ ```
 
 ## Automation via Behat
 
@@ -81,6 +106,9 @@ Provided you have initialised [acceptance testing](https://docs.moodle.org/dev/R
 
 ## FAQs
 - **Why Jasmine?** TODO
+
+## Contributing
+**TODO**
 
 ## License
 [GNU GPL v3 or later](http://www.gnu.org/copyleft/gpl.html)
