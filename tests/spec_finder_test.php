@@ -38,14 +38,14 @@ class spec_finder_testcase extends basic_testcase {
     }
 
     public function test_file_is_spec() {
+        $suffix = spec_finder::SPEC_SUFFIX;
 
-        // TODO use constant?
         $paths = [
-            'foo_spec.js.php' => true,
-            'foobar.js.php'   => false,
-            'foo_spec.php'    => false,
-            'foo_bar.js.php'  => false,
-            '_spec.js.php'    => false,
+            "foo{$suffix}"  => true,
+            'foobar.js.php' => false,
+            'foo_spec.php'  => false,
+            'foo_bar.js.php'=> false,
+            $suffix         => false,
         ];
 
         foreach ($paths as $path => $expected) {
