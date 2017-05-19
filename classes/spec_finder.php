@@ -134,7 +134,45 @@ class spec_finder {
         return $specdata;
     }
 
-    public function find_in_fixtures_plugin_dirs() {
+    /**
+     * Scan for directories containing spec files with a given directory.
+     *
+     * Looks for directories containing spec files and returns them listed
+     * in an array grouped by the containing directory name.
+     *
+     * @param string $dir Directory to scan.
+     * @return array
+     */
+    public static function find_in_group_dirs($dir) {
+
+        $specdata = [];
+
+        $entries = @scandir($dir);
+
+        if ($entries === false) {
+            throw new \coding_exception("'{$dir}' is not a directory.");
+        }
+
+        foreach ($entries as $entry) {
+            $entrypath = "{$dir}/{$entry}";
+
+            if (in_array($entry, ['.', '..'])) {
+                continue;
+            }
+
+            if (!is_dir($entrypath)) {
+                continue;
+            }
+
+            $specs = self::find_in_directory($entrypath);
+            if (empty($specs)) {
+                continue;
+            }
+
+            $specdata[basename($entry)] = $specs;
+        }
+
+        return $specdata;
     }
 
 }

@@ -39,17 +39,32 @@ if (!is_writable($paths->root)) {
     throw new coding_exception("\$CFG property {$dataroot} does not exist or is not writable");
 }
 
-if (!file_exists($paths->features)) {
-    mkdir($paths->features);
+if (file_exists($paths->features)) {
+    // TODO make this more robust and remove diretories too
+    // if found even though we only expect this directory to
+    // contain feature files.
+    $entries = @scandir($paths->features);
+    if (is_array($entries)) {
+        foreach($entries as $entry) {
+            unlink("{$paths->features}/{$entry}");
+        }
+    }
+    rmdir($paths->features);
 }
 
-// Find specs and generate behat features under the tool_jasmine dataroot directory.
-$specsdata = \tool_jasmine\spec_finder::find_in_plugins();
+mkdir($paths->features);
+testing_fix_file_permissions($paths->features);
+
+$pluginspecs = \tool_jasmine\spec_finder::find_in_plugins();
+$toolspecs = \tool_jasmine\spec_finder::find_in_group_dirs($CFG->dirroot . '/admin/tool/jasmine/' .
+\tool_jasmine\spec_finder::PLUGIN_SPEC_DIR);
+$allspecs = array_merge($pluginspecs, $toolspecs);
+
 $renderer = $PAGE->get_renderer('tool_jasmine');
 
-foreach($specsdata as $frankenstyle => $specs) {
-    $content = $renderer->render(new \tool_jasmine\output\behat_feature($frankenstyle, $specs));
-    $outputpath = implode('/', array($paths->features, "{$frankenstyle}.feature"));
+foreach($allspecs as $featurename => $specs) {
+    $content = $renderer->render(new \tool_jasmine\output\behat_feature($featurename, $specs));
+    $outputpath = implode('/', array($paths->features, "{$featurename}.feature"));
     file_put_contents($outputpath, $content);
     testing_fix_file_permissions($outputpath);
 }

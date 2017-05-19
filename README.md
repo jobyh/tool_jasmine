@@ -118,6 +118,7 @@ Provided you have initialised [acceptance testing](https://docs.moodle.org/dev/R
 ## FAQs
 - **Why Jasmine?** TODO
 - **Why automate with Behat?** TODO
+- **Is this only for AMD modules?** TODO
 
 ## Contributing
 **TODO**

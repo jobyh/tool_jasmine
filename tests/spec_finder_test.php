@@ -56,18 +56,18 @@ class spec_finder_testcase extends basic_testcase {
         }
     }
 
+    public function test_find_in_directory_throws() {
+        $this->setExpectedException('\coding_exception');
+        $dir = implode('/', [self::$dummy_plugin_dir, 'not_a_dir']);
+        spec_finder::find_in_directory($dir);
+    }
+
     public function test_find_in_directory() {
         $dir = implode('/', [self::$dummy_plugin_dir, spec_finder::PLUGIN_SPEC_DIR]);
         $expected = ['dummy1', 'dummy2', 'dummy3'];
         $actual = spec_finder::find_in_directory($dir);
 
         $this->assertEquals($expected, $actual);
-    }
-
-    public function test_find_in_directory_throws() {
-        $this->setExpectedException('\coding_exception');
-        $dir = implode('/', [self::$dummy_plugin_dir, 'not_a_dir']);
-        spec_finder::find_in_directory($dir);
     }
 
     public function test_find_in_plugins() {
@@ -78,6 +78,33 @@ class spec_finder_testcase extends basic_testcase {
         $actual = spec_finder::find_in_plugins()['tool_jasmine'];
 
         $this->assertEquals($expected, $actual);
+    }
+
+    public function test_find_in_group_dirs_throws() {
+        $this->setExpectedException('\coding_exception');
+        $dir = implode('/', [self::$dummy_plugin_dir, 'not_a_dir']);
+        spec_finder::find_in_group_dirs($dir);
+    }
+
+    public function test_find_in_group_dirs() {
+        $dir = implode('/', [self::$dummy_plugin_dir, spec_finder::PLUGIN_SPEC_DIR]);
+        $expected = [
+            'flumps' => ['posie', 'pootle', 'perkin'],
+            'local_foo' => ['bar'],
+        ];
+        $actual = spec_finder::find_in_group_dirs($dir);
+        
+        // This is covered by then next assertion but just make it
+        // explicit: There is a 'no_specs' directory containing a file
+        // which does not end in the spec suffix so should not be added.
+        $this->assertArrayNotHasKey('no_specs', $actual);
+
+        $expectedsorted = sort($expected['flumps']);
+        $actualsorted = sort($actual['flumps']);
+        $this->assertEquals($expectedsorted, $actualsorted);
+
+        // No need to sort this one as just a single entry.
+        $this->assertEquals($expected['local_foo'], $actual['local_foo']);
     }
 
 }
