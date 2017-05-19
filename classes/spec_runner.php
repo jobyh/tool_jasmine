@@ -90,7 +90,7 @@ class spec_runner {
         $output .= \tool_jasmine\boilerplate::page_header();
 
         // Hides parts of the page we can't prevent being output
-        // due to tight coupling of in core output renderers.
+        // due to tight coupling in core output renderers.
         $output .= \tool_jasmine\boilerplate::hide_page_element_styles();
 
         $output .= $this->jasmine_styles_html();
@@ -112,21 +112,30 @@ class spec_runner {
     }
 
     /**
-     * @param $specs
+     * Perform access checks and output the spec runner page HTML.
+     *
+     * This static method is implemented purely for the purpose of
+     * keeping lines of (non-JavaScript) code in the spec file to
+     * a bare minimum.
+     *
+     * @param string|string[] $specs
+     * @return string
      */
     public static function generate($url, $specs) {
-        global $PAGE;
-
         \tool_jasmine\boilerplate::check_acceptance_site();
         \tool_jasmine\boilerplate::check_permissions();
         \tool_jasmine\boilerplate::init_page(new \moodle_url($url));
-//        if (!is_array($specs)) {
-//            $specs = array($specs);
-//        }
-//
-//        $instance = new \tool_jasmine\spec_runner();
-//
-//        foreach ($specs as $spec) {}
-        return 'woo';
+
+        if (!is_array($specs)) {
+            $specs = array($specs);
+        }
+
+        $runner = new \tool_jasmine\spec_runner();
+
+        foreach ($specs as $spec) {
+            $runner->spec($spec);
+        }
+
+        return $runner->out();
     }
 }
