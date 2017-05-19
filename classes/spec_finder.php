@@ -32,7 +32,7 @@ class spec_finder {
     /*
      * Standard spec location inside plugins.
      */
-    const PLUGIN_SPEC_DIR = 'tests/behat/fixtures/tool_jasmine';
+    const PLUGIN_SPEC_DIR = 'tests/behat/fixtures/jasmine';
 
     /*
      * All tool_jasmine specs must use this suffix.

@@ -39,7 +39,9 @@ class behat_feature_testcase extends basic_testcase {
     public function test_properties() {
         global $CFG;
 
-        $specs = spec_finder::find_in_directory("{$CFG->dirroot}/admin/tool/jasmine/tests/behat/fixtures/tool_jasmine");
+        $pluginspecdir = spec_finder::PLUGIN_SPEC_DIR;
+
+        $specs = spec_finder::find_in_directory("{$CFG->dirroot}/admin/tool/jasmine/{$pluginspecdir}");
         $instance = new behat_feature('tool_jasmine', $specs);
 
         $this->assertEquals('tool_jasmine', $instance->plugin);
