@@ -46,6 +46,9 @@ if (file_exists($paths->features)) {
     $entries = @scandir($paths->features);
     if (is_array($entries)) {
         foreach($entries as $entry) {
+            if (in_array($entry, array('.', '..'))) {
+                continue;
+            }
             unlink("{$paths->features}/{$entry}");
         }
     }
