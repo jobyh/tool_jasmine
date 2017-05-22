@@ -118,4 +118,15 @@ HTML;
         
     }
 
+    public  static function load_js_url($url) {
+        global $PAGE;
+
+        // In header or footer. This defaults to false
+        // but I want to be explicit about where the
+        // script is actually going so you don't have
+        // to read through a bunch of code to work it out.
+        $inhead = false;
+        $PAGE->requires->js($url, $inhead);
+    }
+
 }

@@ -27,13 +27,34 @@ require('../../../../../../../config.php');
 
 $spec = <<<JS
 
-    describe('Test an AMD module', function() {
-        it('can test async functions', function(done) {
-            require(['jquery'], function($) {
-                expect(typeof $).toBe('function');
-                done();
-            })
+    describe('Show some Jasmine test examples', function() {
+        
+        it('can test globals', function() {
+            expect(typeof M.cfg).toBe('object');
         });
+        
+        // Note YUI loading is async so use Jasmine's done() async support.
+        it('can test YUI modules', function() {
+            // expect(typeof M.cfg).toBe('object');
+            // done();
+            YUI().use('moodle-core-notification-alert', function() {
+                // Tiny reliance issue here, we don't actually load the error string into JS. It is already loaded by
+                // some other code and we just use it,
+                new M.core.alert({message: data.error, title: M.util.get_string('error', 'moodle')});
+            });
+        });
+        
+        // AMD for 2.9+ only
+        if (typeof require !== 'undefined') {
+            // AMD is also async.
+            it('can test AMD modules', function(done) {
+                require(['jquery'], function($) {
+                    expect(typeof $).toBe('function');
+                    done();
+                })
+            });
+        }
+        
     });
 
 JS;

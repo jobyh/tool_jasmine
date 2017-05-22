@@ -45,4 +45,18 @@ class boilerplate_testcase extends advanced_testcase {
         $this->assertRegExp('/' . preg_quote($import, '/') . '/', boilerplate::hide_page_element_styles());
     }
 
+    public function test_load_js_url() {
+        global $PAGE;
+
+        // The file must exist as this is checked.
+        boilerplate::load_js_url('/admin/tool/jasmine/js/jurassic.js');
+
+        // Introspection as legacy 'requires'class isn't easy to test.
+        $jsincludes = new ReflectionProperty(get_class($PAGE->requires), 'jsincludes');
+        $jsincludes->setAccessible(true);
+
+        $this->assertCount(1, $jsincludes->getValue($PAGE->requires)['footer']);
+
+    }
+
 }

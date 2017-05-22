@@ -118,16 +118,25 @@ class spec_runner {
      * keeping lines of (non-JavaScript) code in the spec file to
      * a bare minimum.
      *
-     * @param string|string[] $specs
+     * @param string|\moodle_url $url Current page URL.
+     * @param string|string[] $specs Spec string or array of spec strings.
      * @return string
      */
-    public static function generate($url, $specs) {
+    public static function generate($url, $specs, $options = []) {
         \tool_jasmine\boilerplate::check_acceptance_site();
         \tool_jasmine\boilerplate::check_permissions();
         \tool_jasmine\boilerplate::init_page(new \moodle_url($url));
 
+        // TODO
+        // $options = self::parse_generate_options();
+        $options = array_merge(['scripts' => []], $options);
+
+        foreach ($options['scripts'] as $url) {
+            \tool_jasmine\boilerplate::load_js_url($url);
+        }
+
         if (!is_array($specs)) {
-            $specs = array($specs);
+            $specs = [$specs];
         }
 
         $runner = new \tool_jasmine\spec_runner();
