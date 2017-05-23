@@ -39,7 +39,7 @@ class behat_tool_jasmine extends behat_base {
      * is to provide a single spec file for each AMD module and
      * name it accordingly. E.g.
      *
-     * local/myplugin/amd/src/foo.js => local/myplugin/tests/behat/fixtures/tool_jasmine/foo_spec.js.php
+     * local/myplugin/amd/src/foo.js => local/myplugin/tests/behat/fixtures/tool_jasmine/foo_spec.php
      *
      * @Given /^I navigate to the "([^"]*)" plugin "([^"]*)" Jasmine spec$/
      */

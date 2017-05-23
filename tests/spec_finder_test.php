@@ -42,9 +42,8 @@ class spec_finder_testcase extends basic_testcase {
 
         $paths = [
             "foo{$suffix}"  => true,
-            'foobar.js.php' => false,
-            'foo_spec.php'  => false,
-            'foo_bar.js.php'=> false,
+            'foobar.php' => false,
+            'foo_bar.php'=> false,
             $suffix         => false,
         ];
 

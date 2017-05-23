@@ -37,7 +37,7 @@ class spec_finder {
     /*
      * All tool_jasmine specs must use this suffix.
      */
-    const SPEC_SUFFIX = '_spec.js.php';
+    const SPEC_SUFFIX = '_spec.php';
 
     /**
      * Does the given filename end with the spec suffix?
