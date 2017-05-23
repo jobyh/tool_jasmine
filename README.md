@@ -21,6 +21,7 @@ A somewhat eccentric tool for JavaScript testing.
 
 ## Requirements
 - Moodle or Totara version 2.9.0+
+- PHP 5.4.4+
 - A sensible browser **TODO**
 
 ## Installation
@@ -35,7 +36,7 @@ Usual plugin installation drill. Navigate to `Site administration > notification
 Once this is done navigate to:
 
 ```
-<$CFG->behat_wwwroot>/admin/tool/jasmine/tests/behat/fixtures/jasmine/example_spec.js.php
+<$CFG->behat_wwwroot>/admin/tool/jasmine/tests/behat/fixtures/jasmine/example_spec.php
 ```
 
 To see an example of the Jasmine runner. Note you will be prompted to log in to the acceptance site. The username / password is `admin` / `admin`.
@@ -55,13 +56,13 @@ The first approach is intended where specs are to be committed into the main LMS
 
 In order to satisfy security requirements and mitigate potential data loss JavaScript specs must be contained within PHP files. This is so they can only be accessed from an initialised Behat ([acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test)) site. You will have defined the URL base of this site in `$CFG->behat_wwwroot` before initialising Behat. Developer debugging must also be enabled in your `config.php` file and you must be logged in as an administrator. The username / password for the administrator account in the Behat site is automatically configured during Behat initialisation and is `admin`, `admin`.
 
-
 ## Writing specs
 
-Spec files must end with the `_spec.js.php` suffix. You may find it a useful convention to keep a 1:1 association between your JS modules and specs. E.g. the following example tests an AMD module called `mymodule` found in a local plugin `foo`: 
+Spec files must end with the `_spec.php` suffix. You may find it a useful convention to keep a 1:1 association 
+between your JS modules and specs. E.g. the following example tests an AMD module called `mymodule` found in a local plugin `foo`: 
 
 ```javascript
-// file: local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.js.php
+// file: local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.php
 
 // License and author attribution here.
 
@@ -88,7 +89,7 @@ $spec = <<<JS
 JS;
 
 // We must provide the current page URL as we would usually pass to $PAGE->set_url().
-$url = '/local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.js.php';
+$url = '/local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.php';
 
 // Performs necessary access checks then generates spec runner HTML.
 echo \tool_jasmine\spec_runner::generate($url, $spec);
@@ -97,7 +98,7 @@ echo \tool_jasmine\spec_runner::generate($url, $spec);
 View and debug your test results by navigating to the PHP file in a browser. The spec runner for the above would be accessible in a browser at:
 
  ```
- <$CFG->behat_wwwroot>/local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.js.php
+ <$CFG->behat_wwwroot>/local/foo/tests/behat/fixtures/tool_jasmine/mymodule_spec.php
  ```
 
 ## Automation via Behat
