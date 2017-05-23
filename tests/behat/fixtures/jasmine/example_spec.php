@@ -29,13 +29,16 @@ $spec = <<<JS
 
     describe("tool_jasmine is proper good because", function() {
 
+        it('can test platform globals', function() {
+            expect(typeof M.cfg).toBe('object');
+        });
+
         it('can test AMD modules', function(done) {
             require(['jquery'], function($) {
                 expect(typeof $).toBe('function');
                 done();
             });
         });
-        // ...bok
         
         it('can test methods which are async', function(done) {
             require(['core/str'], function(str) {
@@ -45,33 +48,34 @@ $spec = <<<JS
                 });
             });
         });
-        // ...bok
     
-        it('can test YUI modules', function() {
-            expect(typeof M.cfg).toBe('object');
+        it('can test YUI modules', function(done) {
+            expect(typeof M.core.init_formautosubmit).toBe('undefined');
+            Y.use('moodle-core-formautosubmit', function(Y) {
+                expect(typeof M.core.init_formautosubmit).toBe('function');
+                done();
+            });
         });
-        // ...bok
 
-        it('can test platform globals', function() {
-            expect(typeof M.cfg).toBe('object');
-        });
-        // ...bok
-
+        // Note that the JS under test here is included in the call below to
+        // generate the runner passed in the 'scripts' option item.
         it('can test crappy old JavaScript in the global namespace', function() {
             expect(mrCrufty()).toBe("still chuggin' away");
         });
-        // ...bok
-        
-        // it("can test crazy freakin' spaghetti-mess :o", function(done) {
-        //     require(['jquery'], function($) {
-        //         var node = $('<div class="nodey"></div>');
-        //         nodey.html(M.cfg.theme);
-        //         YUI.add('node', function() {
-        //             done();
-        //         });
-        //     });
-        // });
-        // ...BGERK!
+
+        it("can test crazy freakin' spaghetti mess!", function(done) {
+            require(['jquery'], function($) {
+                Y.use('node', function(Y) {
+                    var fragment = Y.Node.create('<div class="root"><div class="child"></div></div>');
+                    var message = (M.cfg.developerdebug === true) ? 'Debugging ON' : 'Debugging OFF';
+                    fragment = $(fragment.getDOMNode()).find('.child').html(message).end().get(0);
+                    
+                    // Specs can only be viewed with debugging on.
+                    expect(fragment.querySelector('.child').innerHTML).toBe('Debugging ON');
+                    done();
+                });
+            });
+        });
         
     });
 
