@@ -65,11 +65,14 @@ $allspecs = array_merge($pluginspecs, $toolspecs);
 
 $renderer = $PAGE->get_renderer('tool_jasmine');
 
+echo 'Generating feature files:' . PHP_EOL;
 foreach($allspecs as $featurename => $specs) {
     $content = $renderer->render(new \tool_jasmine\output\behat_feature($featurename, $specs));
     $outputpath = implode('/', array($paths->features, "{$featurename}.feature"));
     file_put_contents($outputpath, $content);
+    echo "\t{$outputpath}" . PHP_EOL;
     testing_fix_file_permissions($outputpath);
 }
+echo 'Done' . PHP_EOL;
 
 exit(0);
