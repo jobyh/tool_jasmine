@@ -64,7 +64,11 @@ In order to satisfy security requirements and mitigate potential data loss JavaS
 
 **Note:** For examples using AMD, YUI and JS in the global namespace check out the example spec file `tests/behat/fixtures/jasmine/example_spec.php`
 
-Spec files must end with the `_spec.php` suffix. You may find it a useful convention to keep a 1:1 association 
+Spec files must end with the `_spec.php` suffix. You may find it a 
+useful convention
+ to 
+keep a 1:1 
+association 
 between your JS modules and specs. E.g. the following example tests an AMD module called `mymodule` found in a local plugin `foo`: 
 
 ```javascript
@@ -119,6 +123,7 @@ your `config.php`.
 ```
 
 Provided you have initialised [acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test) you can run all these Behat features using the standard Behat parameters and specifying the **absolute** path to the generated directory:
+**Note:** The path to the features directory **must** be absolute or Behat won't find it.
 
 ```
 % cd /path/to/your/$CFG->dirroot
