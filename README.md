@@ -13,6 +13,7 @@ A somewhat eccentric tool for JavaScript testing.
 
 ### What it does
 - Gives you the means to write test-driven JavaScript in Moodle and Totara
+- Supports AMD, YUI and JavaScript lurking in the global namespace when you're legacy bushwacking
 - Provides a way to automate running your tests
 - Allows you to integrate spec files with your codebase or store them separately
 
@@ -47,8 +48,8 @@ In order to generate Behat features using the command-line script (discussed bel
 ## Spec Location
 Depending on what you're developing / buy-in from stakeholders you may or may not wish to include Jasmine specs in your LMS repository. To accommodate both scenarios specs may be placed in the following directories:
 
-- Any plugin under `tests/behat/fixtures/jasmine`
-- In tool_jasmine `admin/tool/jasmine/tests/behat/fixtures/jasmine/<frankenstyle_componentname>`
+- Any plugin under `tests/behat/fixtures/jasmine/`
+- In tool_jasmine under `admin/tool/jasmine/tests/behat/fixtures/jasmine/<frankenstyle_componentname>/`
 
 The first approach is intended where specs are to be committed into the main LMS repository. The second so that all tests can be stored in a standalone fork of tool\_jasmine which can be dropped in for testing when required. If for some reason both are used then the spec in tool\_jasmine is given precedence.
 
@@ -57,6 +58,8 @@ The first approach is intended where specs are to be committed into the main LMS
 In order to satisfy security requirements and mitigate potential data loss JavaScript specs must be contained within PHP files. This is so they can only be accessed from an initialised Behat ([acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test)) site. You will have defined the URL base of this site in `$CFG->behat_wwwroot` before initialising Behat. Developer debugging must also be enabled in your `config.php` file and you must be logged in as an administrator. The username / password for the administrator account in the Behat site is automatically configured during Behat initialisation and is `admin`, `admin`.
 
 ## Writing specs
+
+**Note:** For examples using AMD, YUI and JS in the global namespace check out the example spec file `tests/behat/fixtures/jasmine/example_spec.php`
 
 Spec files must end with the `_spec.php` suffix. You may find it a useful convention to keep a 1:1 association 
 between your JS modules and specs. E.g. the following example tests an AMD module called `mymodule` found in a local plugin `foo`: 
@@ -119,7 +122,6 @@ Provided you have initialised [acceptance testing](https://docs.moodle.org/dev/R
 ## FAQs
 - **Why Jasmine?** TODO
 - **Why automate with Behat?** TODO
-- **Is this only for AMD modules?** TODO
 
 ## Contributing
 **TODO**
