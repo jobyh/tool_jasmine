@@ -30,7 +30,7 @@ A somewhat eccentric tool for JavaScript testing.
 ```
 % cd path/to/your/$CFG->dirroot
 % git clone https://github.com/jobyh/tool_jasmine.git admin/tool/jasmine
-% cd admin/tool/jasmine && git checkout -b 2.0-development
+% cd admin/tool/jasmine && git checkout 2.0-development
 ```
 
 Usual plugin installation drill. Navigate to `Site administration > notifications` and follow the onscreen 
