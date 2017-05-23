@@ -30,6 +30,7 @@ A somewhat eccentric tool for JavaScript testing.
 ```
 % cd path/to/your/$CFG->dirroot
 % git clone https://github.com/jobyh/tool_jasmine.git admin/tool/jasmine
+% git checkout -b 2.0-development
 ```
 
 Usual plugin installation drill. Navigate to `Site administration > notifications` and follow the onscreen instructions. Also initialise your Behat [acceptance testing](https://docs.moodle.org/dev/Running_acceptance_test) site from which specs will be accessed.
