@@ -116,7 +116,7 @@ Provided you have initialised [acceptance testing](https://docs.moodle.org/dev/R
 
 ```
 % cd /path/to/your/$CFG->dirroot
-% vendor/bin/behat --config=/path/to/behat.yml /path/to/$CFG->dataroot/tool_jasmine/
+% vendor/bin/behat --config=/path/to/behat.yml /path/to/$CFG->tool_jasmine_dataroot/features/
 ```
 
 ## FAQs
