@@ -109,7 +109,10 @@ View and debug your test results by navigating to the PHP file in a browser. The
 
 ## Automation via Behat
 
-A command-line script takes care of generating Behat feature files which can be run to check whether Jasmine specs are passing intended primarily for integration with build pipelines. Each plugin containing Jasmine specs will have its own Behat feature file written to a `features` directory under `$CFG->tool_behat_dataroot` which you specify in your `config.php`.
+A command-line script takes care of generating Behat feature files which can be run to check whether Jasmine specs 
+are passing intended primarily for integration with build pipelines. Each plugin containing Jasmine specs will have 
+its own Behat feature file written to a `features` directory under `$CFG->tool_jasmine_dataroot` which you specify in 
+your `config.php`.
 
 ```
 % php /path/to/your/$CFG->dirroot/admin/tool/jasmine/cli/init.php
