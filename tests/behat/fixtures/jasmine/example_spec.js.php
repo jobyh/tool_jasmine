@@ -23,41 +23,63 @@
  * @package   tool_jasmine
  */
 
-require('../../../../../../../config.php');
+require('../../../../../../../../config.php');
 
 $spec = <<<JS
 
-    describe('Show some Jasmine test examples', function() {
+    describe("tool_jasmine is proper good because", function() {
+
+        it('can test AMD modules', function(done) {
+            require(['jquery'], function($) {
+                expect(typeof $).toBe('function');
+                done();
+            });
+        });
+        // ...bok
         
-        it('can test globals', function() {
+        it('can test methods which are async', function(done) {
+            require(['core/str'], function(str) {
+                str.get_string('block', '', null, 'en').then(function(localised) {
+                    expect(localised).toBe('Block');
+                    done();
+                });
+            });
+        });
+        // ...bok
+    
+        it('can test YUI modules', function() {
             expect(typeof M.cfg).toBe('object');
         });
-        
-        // Note YUI loading is async so use Jasmine's done() async support.
-        it('can test YUI modules', function() {
-            // expect(typeof M.cfg).toBe('object');
-            // done();
-            YUI().use('moodle-core-notification-alert', function() {
-                // Tiny reliance issue here, we don't actually load the error string into JS. It is already loaded by
-                // some other code and we just use it,
-                new M.core.alert({message: data.error, title: M.util.get_string('error', 'moodle')});
-            });
+        // ...bok
+
+        it('can test platform globals', function() {
+            expect(typeof M.cfg).toBe('object');
         });
+        // ...bok
+
+        it('can test crappy old JavaScript in the global namespace', function() {
+            expect(mrCrufty()).toBe("still chuggin' away");
+        });
+        // ...bok
         
-        // AMD for 2.9+ only
-        if (typeof require !== 'undefined') {
-            // AMD is also async.
-            it('can test AMD modules', function(done) {
-                require(['jquery'], function($) {
-                    expect(typeof $).toBe('function');
-                    done();
-                })
-            });
-        }
+        // it("can test crazy freakin' spaghetti-mess :o", function(done) {
+        //     require(['jquery'], function($) {
+        //         var node = $('<div class="nodey"></div>');
+        //         nodey.html(M.cfg.theme);
+        //         YUI.add('node', function() {
+        //             done();
+        //         });
+        //     });
+        // });
+        // ...BGERK!
         
     });
 
 JS;
 
-$url = '/admin/tool/jasmine/tests/behat/fixtures/tool_jasmine/example_spec.js.php';
-echo \tool_jasmine\spec_runner::generate($url, $spec);
+$url = '/admin/tool/jasmine/tests/behat/fixtures/jasmine/example_spec.js.php';
+
+echo \tool_jasmine\spec_runner::generate($url, $spec, [
+    // The scripts option adds Javascript by loading a URL using $PAGE->requires->js().
+    'scripts' => ['/admin/tool/jasmine/js/jurassic.js']
+]);
