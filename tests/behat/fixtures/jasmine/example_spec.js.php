@@ -23,7 +23,7 @@
  * @package   tool_jasmine
  */
 
-require('../../../../../../../../config.php');
+require('../../../../../../../config.php');
 
 $spec = <<<JS
 
