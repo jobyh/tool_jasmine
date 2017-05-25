@@ -132,7 +132,7 @@ And I navigate to the "local_foo" plugin "boz" Jasmine spec
 Then I should see that the Jasmine spec has passed
 ```
 
-That's it!
+Don't forget that after creating a brand new feature file you'll need to re-initialise Behat. That's it!
 
 ## Contributing
 **TODO**
