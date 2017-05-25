@@ -51,15 +51,15 @@ class spec_runner_testcase extends basic_testcase {
 
     public function test_it_adds_jasmine_js_assets() {
         $output = (new spec_runner())->out();
-        $jsfiles = array(
+        $jsfiles = [
             'boot.js',
             'jasmine.js',
             'jasmine-html.js',
-        );
+        ];
 
         foreach ($jsfiles as $jsfile) {
             $url = (new moodle_url("/admin/tool/jasmine/lib/jasmine-2.5.2/{$jsfile}"))->out();
-            $tag = html_writer::tag('script', '', array('type' => 'text/javascript', 'src' => $url));
+            $tag = html_writer::tag('script', '', ['type' => 'text/javascript', 'src' => $url]);
             $regex = '/' . preg_quote($tag, '/') . '/';
             $this->assertRegExp($regex, $output);
         }
@@ -69,7 +69,7 @@ class spec_runner_testcase extends basic_testcase {
         $output = (new spec_runner())->out();
 
         $url = (new moodle_url("/admin/tool/jasmine/lib/jasmine-2.5.2/jasmine.css"))->out();
-        $tag = html_writer::tag('link', '', array('type' => 'text/css', 'rel' => 'stylesheet', 'href' => $url));
+        $tag = html_writer::tag('link', '', ['type' => 'text/css', 'rel' => 'stylesheet', 'href' => $url]);
         $regex = '/' . preg_quote($tag, '/') . '/';
         $this->assertRegExp($regex, $output);
     }
@@ -78,7 +78,7 @@ class spec_runner_testcase extends basic_testcase {
         $output = (new spec_runner())->out();
 
         $url = (new moodle_url("/admin/tool/jasmine/lib/sinon-2.1.0/sinon-2.1.0.js"))->out();
-        $tag = html_writer::tag('script', '', array('type' => 'text/javascript', 'src' => $url));
+        $tag = html_writer::tag('script', '', ['type' => 'text/javascript', 'src' => $url]);
         $regex = '/' . preg_quote($tag, '/') . '/';
         $this->assertRegExp($regex, $output);
     }

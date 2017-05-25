@@ -36,7 +36,7 @@ class spec_runner {
     /**
      * @var array
      */
-    protected $specs = array();
+    protected $specs = [];
 
     /**
      * Add a spec string for output. Any number may be added. Chainable.
@@ -56,7 +56,7 @@ class spec_runner {
      */
     protected function jasmine_styles_html() {
         $url = (new \moodle_url("/admin/tool/jasmine/lib/jasmine-2.5.2/jasmine.css"))->out();
-        return \html_writer::tag('link', '', array('type' => 'text/css', 'rel' => 'stylesheet', 'href' => $url));
+        return \html_writer::tag('link', '', ['type' => 'text/css', 'rel' => 'stylesheet', 'href' => $url]);
     }
 
     /**
@@ -66,9 +66,9 @@ class spec_runner {
      */
     protected function jasmine_scripts_html() {
         // Order of scripts is important.
-        return array_reduce(array('jasmine', 'jasmine-html', 'boot'), function($carry, $item) {
+        return array_reduce(['jasmine', 'jasmine-html', 'boot'], function($carry, $item) {
             $url = (new \moodle_url("/admin/tool/jasmine/lib/jasmine-2.5.2/{$item}.js"))->out();
-            return $carry .= \html_writer::tag('script', '', array('type' => 'text/javascript', 'src' => $url));
+            return $carry .= \html_writer::tag('script', '', ['type' => 'text/javascript', 'src' => $url]);
         }, '');
     }
 
@@ -79,7 +79,7 @@ class spec_runner {
      */
     protected function sinon_scripts_html() {
         $url = (new \moodle_url("/admin/tool/jasmine/lib/sinon-2.1.0/sinon-2.1.0.js"))->out();
-        return \html_writer::tag('script', '', array('type' => 'text/javascript', 'src' => $url));
+        return \html_writer::tag('script', '', ['type' => 'text/javascript', 'src' => $url]);
     }
 
     /**
@@ -108,7 +108,7 @@ class spec_runner {
 
         // Output the Jasmine specs.
         $specs = implode((PHP_EOL . PHP_EOL), $this->specs);
-        $attributes = array('type' => 'text/javascript');
+        $attributes = ['type' => 'text/javascript'];
         $output .= \html_writer::tag('script', $specs, $attributes);
 
 
