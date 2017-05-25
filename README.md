@@ -68,7 +68,7 @@ require('../../../../../config.php');
 
 I then write my Jasmine tests inside 'JS' Heredoc delimiters (or a string but PHPStorm is smart enough to correctly syntax highlight the JS Heredoc). There is an important reason the JavaScript must be inside a PHP file - if it were a plain JavaScript file we would have no control over access which could lead to accidental data loss depending on what the test involved. This is mitigated by allowing access on the acceptance site only. It also means that we can enforce permissions and attempt to make the environment consistent for testing.
 
-```javascript
+```php
 <?php
 require('../../../../../config.php');
 
