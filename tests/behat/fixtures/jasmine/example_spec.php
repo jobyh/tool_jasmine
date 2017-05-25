@@ -27,57 +27,57 @@ require('../../../../../../../config.php');
 
 $spec = <<<JS
 
-    describe("tool_jasmine is proper good because", function() {
+describe("tool_jasmine is proper good because", function() {
 
-        it('can test platform globals', function() {
-            expect(typeof M.cfg).toBe('object');
-        });
-
-        it('can test AMD modules', function(done) {
-            require(['jquery'], function($) {
-                expect(typeof $).toBe('function');
-                done();
-            });
-        });
-        
-        it('can test methods which are async', function(done) {
-            require(['core/str'], function(str) {
-                str.get_string('block', '', null, 'en').then(function(localised) {
-                    expect(localised).toBe('Block');
-                    done();
-                });
-            });
-        });
-    
-        it('can test YUI modules', function(done) {
-            expect(typeof M.core.init_formautosubmit).toBe('undefined');
-            Y.use('moodle-core-formautosubmit', function(Y) {
-                expect(typeof M.core.init_formautosubmit).toBe('function');
-                done();
-            });
-        });
-
-        // Note that the JS under test here is included in the call below to
-        // generate the runner passed in the 'scripts' option item.
-        it('can test crappy old JavaScript in the global namespace', function() {
-            expect(mrCrufty()).toBe("still chuggin' away");
-        });
-
-        it("can test crazy freakin' spaghetti mess!", function(done) {
-            require(['jquery'], function($) {
-                Y.use('node', function(Y) {
-                    var fragment = Y.Node.create('<div class="root"><div class="child"></div></div>');
-                    var message = (M.cfg.developerdebug === true) ? 'Debugging ON' : 'Debugging OFF';
-                    fragment = $(fragment.getDOMNode()).find('.child').html(message).end().get(0);
-                    
-                    // Specs can only be viewed with debugging on.
-                    expect(fragment.querySelector('.child').innerHTML).toBe('Debugging ON');
-                    done();
-                });
-            });
-        });
-        
+    it('can test platform globals', function() {
+        expect(typeof M.cfg).toBe('object');
     });
+
+    it('can test AMD modules', function(done) {
+        require(['jquery'], function($) {
+            expect(typeof $).toBe('function');
+            done();
+        });
+    });
+    
+    it('can test methods which are async', function(done) {
+        require(['core/str'], function(str) {
+            str.get_string('block', '', null, 'en').then(function(localised) {
+                expect(localised).toBe('Block');
+                done();
+            });
+        });
+    });
+
+    it('can test YUI modules', function(done) {
+        expect(typeof M.core.init_formautosubmit).toBe('undefined');
+        Y.use('moodle-core-formautosubmit', function(Y) {
+            expect(typeof M.core.init_formautosubmit).toBe('function');
+            done();
+        });
+    });
+
+    // Note that the JS under test here is included in the call below to
+    // generate the runner passed in the 'scripts' option item.
+    it('can test crappy old JavaScript in the global namespace', function() {
+        expect(mrCrufty()).toBe("still chuggin' away");
+    });
+
+    it("can test crazy freakin' spaghetti mess!", function(done) {
+        require(['jquery'], function($) {
+            Y.use('node', function(Y) {
+                var fragment = Y.Node.create('<div class="root"><div class="child"></div></div>');
+                var message = (M.cfg.developerdebug === true) ? 'Debugging ON' : 'Debugging OFF';
+                fragment = $(fragment.getDOMNode()).find('.child').html(message).end().get(0);
+                
+                // Specs can only be viewed with debugging on.
+                expect(fragment.querySelector('.child').innerHTML).toBe('Debugging ON');
+                done();
+            });
+        });
+    });
+    
+});
 
 JS;
 
