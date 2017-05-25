@@ -49,8 +49,8 @@ class behat_tool_jasmine extends behat_base {
         $plugindir = core_component::get_component_directory($plugin);
         $relativepath = substr($plugindir, strlen($CFG->dirroot));
 
-        $specfile = $specname . spec_finder::SPEC_SUFFIX;
-        $specpath = implode('/', [$relativepath, spec_finder::PLUGIN_SPEC_DIR, $specfile]);
+        $specfile = $specname . spec_runner::SPEC_SUFFIX;
+        $specpath = implode('/', [$relativepath, spec_runner::PLUGIN_SPEC_DIR, $specfile]);
 
         $url = new moodle_url($specpath);
         $this->getSession()->visit($url->out(false));

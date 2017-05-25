@@ -29,6 +29,10 @@ defined('MOODLE_INTERNAL') || die();
 
 class spec_runner {
 
+    const SPEC_SUFFIX = '_spec.php';
+
+    const PLUGIN_SPEC_DIR = 'tests/behat/fixtures/jasmine';
+
     /**
      * @var array
      */
