@@ -25,7 +25,7 @@
 
 require_once(__DIR__ . '/../../../../../lib/behat/behat_base.php');
 
-use \tool_jasmine\spec_finder;
+use \tool_jasmine\spec_runner;
 
 class behat_tool_jasmine extends behat_base {
 
