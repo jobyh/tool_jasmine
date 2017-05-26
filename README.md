@@ -2,7 +2,7 @@
 
 # JavaScript testing for Moodle & Totara
 
-Integrates the [Jasmine](https://github.com/jasmine/jasmine) BDD test framework with [Moodle](https://moodle.org/) or [Totara](https://www.totaralms.com/). Jasmine was designed to run in-browser and plays nicely with the  and provides a nice HTML based spec runner out of the box. [Sinon](http://sinonjs.org/) is also included at present for creation of mocks, stubs and spies.
+Integrates the [Jasmine](https://github.com/jasmine/jasmine) BDD test framework with [Moodle](https://moodle.org/) or [Totara](https://www.totaralms.com/). Jasmine provides a nice HTML based spec runner out of the box which works well with the platform architecture. [Sinon](http://sinonjs.org/) is also included at present for creation of mocks, stubs and spies.
 
 We're getting there but this is an Alpha release so constructive feedback and bug reports appreciated!
 
