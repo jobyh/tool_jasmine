@@ -5,3 +5,9 @@
 body > *:not(.jasmine_html-reporter) {
     display: none;
 }
+
+body {
+    background-color: #FFF !important;
+    margin: 0 !important;
+}
+
