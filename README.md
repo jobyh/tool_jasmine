@@ -134,7 +134,7 @@ Then I should see that the Jasmine spec has passed
 
 Don't forget that after creating a brand new feature file you'll need to re-initialise Behat before running. That's it!
 
-**Top tip:** I'd strongly recommend always including the `@jasmine` tag in your specs so you can easily run only your JS tests:
+**Top tip:** I'd strongly recommend always including the `@jasmine` tag in your feature files so you can easily run only your JS tests:
 
 ```
 % cd /path/to/$CFG->dirroot
