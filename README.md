@@ -23,7 +23,7 @@ We're getting there but this is an Alpha release so constructive feedback and bu
 **Top tip:** This repository automatically runs its Jasmine spec this way powered by the excellent [moodle-plugin-ci](https://github.com/moodlerooms/moodle-plugin-ci).
 
 ## That's a bit wierd isn't it?
-Yes. In a nutshell tight coupling and hidden dependencies in the core APIs make it unfeasible to consume JS (even the AMD stuff) from anywhere apart from a bootstrapped LMS page. As [Joe Armstrong's](https://en.wikipedia.org/wiki/Joe_Armstrong_(programming)) famous observation puts it:
+Yes. In a nutshell tight coupling and hidden dependencies in the core APIs make it unfeasible to consume JS (even the AMD stuff) from anywhere apart from a bootstrapped LMS page. As [Joe Armstrong's](https://en.wikipedia.org/wiki/Joe_Armstrong_(programming)) famous metaphor puts it:
 
 > "You wanted a banana but what you got was a gorilla holding the banana and the entire jungle."
 
