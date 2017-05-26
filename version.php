@@ -25,8 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015051100.00; // 2.9.0
-$plugin->requires  = 2014051220.00;
+$plugin->version   = 2017052600;;
+$plugin->requires  = 2015051100.00;
 $plugin->component = 'tool_jasmine';
 $plugin->maturity  = MATURITY_ALPHA;
-
