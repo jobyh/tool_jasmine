@@ -39,7 +39,7 @@ describe("tool_jasmine is proper good because", function() {
             done();
         });
     });
-    
+
     it('can test methods which are async', function(done) {
         require(['core/str'], function(str) {
             str.get_string('block', '', null, 'en').then(function(localised) {
@@ -50,9 +50,13 @@ describe("tool_jasmine is proper good because", function() {
     });
 
     it('can test YUI modules', function(done) {
-        expect(typeof M.core.init_formautosubmit).toBe('undefined');
-        Y.use('moodle-core-formautosubmit', function(Y) {
-            expect(typeof M.core.init_formautosubmit).toBe('function');
+        Y.add('custom-yui-module', function(Y) {
+            return Y.helloWorld = function() {
+                return 'Hello world';
+            }
+        });
+        Y.use('custom-yui-module', function(Y) {
+            expect(Y.helloWorld()).toBe('Hello world');
             done();
         });
     });
@@ -69,14 +73,14 @@ describe("tool_jasmine is proper good because", function() {
                 var fragment = Y.Node.create('<div class="root"><div class="child"></div></div>');
                 var message = (M.cfg.developerdebug === true) ? 'Debugging ON' : 'Debugging OFF';
                 fragment = $(fragment.getDOMNode()).find('.child').html(message).end().get(0);
-                
+
                 // Specs can only be viewed with debugging on.
                 expect(fragment.querySelector('.child').innerHTML).toBe('Debugging ON');
                 done();
             });
         });
     });
-    
+
 });
 
 JS;
