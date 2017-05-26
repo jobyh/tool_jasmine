@@ -120,7 +120,7 @@ Now we've written a spec (above) we want Behat to check if all tests are passing
 
 ```
 @local_foo @javascript @jasmine
-Feature: tool_jasmine JavaScript
+Feature: local_foo JavaScript
 
 Scenario: local_foo Jasmine specs pass
 Given I log in as "admin"
