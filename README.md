@@ -132,7 +132,14 @@ And I navigate to the "local_foo" plugin "boz" Jasmine spec
 Then I should see that the Jasmine spec has passed
 ```
 
-Don't forget that after creating a brand new feature file you'll need to re-initialise Behat. That's it!
+Don't forget that after creating a brand new feature file you'll need to re-initialise Behat before running. That's it!
+
+**Top tip:** I'd strongly recommend always including the `@jasmine` tag in your specs so you can easily run only your JS tests:
+
+```
+% cd /path/to/$CFG->dirroot
+% vendor/bin/behat --config='/path/to/your/behat.yml' --tags='@jasmine'
+```
 
 ## Contributing
 **TODO**
