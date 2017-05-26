@@ -108,7 +108,7 @@ describe('AMD module local_foo/bar', function() {
 JS;
 
 // As you would pass to \moodle_url().
-$url = '/local/foo/tests/behat/fixtures/bar_spec.php';
+$url = '/local/foo/tests/behat/fixtures/jasmine/bar_spec.php';
 echo \tool_jasmine\spec_runner::generate($url, $spec);
 ```
 
