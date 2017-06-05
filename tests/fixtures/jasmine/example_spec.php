@@ -23,7 +23,7 @@
  * @package   tool_jasmine
  */
 
-require('../../../../../../../config.php');
+require('../../../../../../config.php');
 
 $spec = <<<JS
 
@@ -85,7 +85,7 @@ describe("tool_jasmine is proper good because", function() {
 
 JS;
 
-$url = '/admin/tool/jasmine/tests/behat/fixtures/jasmine/example_spec.php';
+$url = '/admin/tool/jasmine/tests/fixtures/jasmine/example_spec.php';
 
 echo \tool_jasmine\spec_runner::generate($url, $spec, [
     // The scripts option adds Javascript by loading a URL using $PAGE->requires->js().

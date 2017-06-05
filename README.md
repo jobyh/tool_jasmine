@@ -48,7 +48,7 @@ site from which specs will be accessed.
 4. See the example spec at:
 
 ```
-<$CFG->behat_wwwroot>/admin/tool/jasmine/tests/behat/fixtures/jasmine/example_spec.php
+<$CFG->behat_wwwroot>/admin/tool/jasmine/tests/fixtures/jasmine/example_spec.php
 ```
 
 ## Writing specs
@@ -57,9 +57,9 @@ Time to get busy with the fizzy. First up **R**ead **t**he **F**abulous **M**anu
 
 ### Look I done a test!
 
-In order for the bundled Behat step definition to find spec files you'll need to place them under the directory `tests/behat/fixtures/jasmine/` in the corresponding plugin. Based around Jasmine's convention all spec files must end in `_spec.php`.
+In order for the bundled Behat step definition to find spec files you'll need to place them under the directory `tests/fixtures/jasmine/` in the corresponding plugin. Based around Jasmine's convention all spec files must end in `_spec.php`.
 
-Let's pretend we're writing a test for hypothetical plugin `local_foo`. I'm creating an AMD module called `bar` and want to test it. I create a spec file at `local/foo/tests/behat/fixtures/jasmine/bar_spec.php`. Inside that file I first include the site `config.php` file:
+Let's pretend we're writing a test for hypothetical plugin `local_foo`. I'm creating an AMD module called `bar` and want to test it. I create a spec file at `local/foo/tests/fixtures/jasmine/bar_spec.php`. Inside that file I first include the site `config.php` file:
 
 ```php
 <?php
@@ -108,7 +108,7 @@ describe('AMD module local_foo/bar', function() {
 JS;
 
 // As you would pass to \moodle_url().
-$url = '/local/foo/tests/behat/fixtures/jasmine/bar_spec.php';
+$url = '/local/foo/tests/fixtures/jasmine/bar_spec.php';
 echo \tool_jasmine\spec_runner::generate($url, $spec);
 ```
 
